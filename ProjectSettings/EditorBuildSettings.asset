@@ -9,9 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/SampleScene.unity
     guid: d1c3109bdb54ad54c8a2b2838528e640
   m_configObjects:
-    Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 6a166fb3cf4bf934bb1ea9164dd0cdd3,
+    Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 52a6f277f6f1dd64fb5961f272112272,
       type: 2}
-    com.unity.xr.magicleap.magic_leap_settings: {fileID: 11400000, guid: 4c6c929a8f990f844a51957dda9387d3,
+    com.unity.xr.magicleap.magic_leap_settings: {fileID: 11400000, guid: 567625474ff1b0c44a5b028bb263954d,
       type: 2}
-    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 06da52d5f08baba40a89ce3097c4e1d3,
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 9c699baaf278a92489a7e563b19c0d12,
       type: 2}

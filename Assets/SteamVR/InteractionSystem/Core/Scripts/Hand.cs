@@ -87,6 +87,8 @@ namespace Valve.VR.InteractionSystem
         public bool spewDebugText = false;
         public bool showDebugInteractables = false;
 
+        public bool controllerVisible = false;
+
         public struct AttachedObject
         {
             public GameObject attachedObject;
@@ -1658,6 +1660,17 @@ namespace Valve.VR.InteractionSystem
 
             this.BroadcastMessage("SetInputSource", handType, SendMessageOptions.DontRequireReceiver); // let child objects know we've initialized
             this.BroadcastMessage("OnHandInitialized", deviceIndex, SendMessageOptions.DontRequireReceiver); // let child objects know we've initialized
+
+            if (controllerVisible)
+            {
+                SetSkeletonRangeOfMotion(Valve.VR.EVRSkeletalMotionRange.WithController);
+                ShowController(true);
+            }
+            else
+            {
+                SetSkeletonRangeOfMotion(Valve.VR.EVRSkeletalMotionRange.WithoutController);
+                HideController(true);
+            }
         }
 
         public void SetRenderModel(GameObject prefab)

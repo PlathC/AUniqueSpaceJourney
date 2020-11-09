@@ -31,17 +31,17 @@ Shader "Unlit/GeoGrass" {
 				#pragma target 4.5
 
 				#pragma require geometry
-
+				
 				#pragma vertex vert
 				#pragma geometry geom
 				#pragma fragment frag
 				#pragma hull hull
 				#pragma domain domain
-
+				
 				#pragma multi_compile _ _MAIN_LIGHT_SHADOWS
 				#pragma multi_compile _ _MAIN_LIGHT_SHADOWS_CASCADE
 				#pragma multi_compile _ _SHADOWS_SOFT
-
+				#pragma multi_compile _ REQUIRES_VERTEX_SHADOW_COORD_INTERPOLATOR
 				// Defines
 
 				#define BLADE_SEGMENTS 1
@@ -62,12 +62,24 @@ Shader "Unlit/GeoGrass" {
 						float4 clipPos = TransformWorldToHClip(input.positionWS);
 						float4 shadowCoord = ComputeScreenPos(clipPos);
 					#else
-						float4 shadowCoord = TransformWorldToShadowCoord(input.positionWS);
+						half cascadeIndex = ComputeCascadeIndex(input.positionWS);
+						half4 shadowCoord = mul(_MainLightWorldToShadow[cascadeIndex], float4(input.positionWS, 1.0));
 					#endif
 
 					Light mainLight = GetMainLight(shadowCoord);
 
-					return lerp(_Color, _Color2, input.uv.y) * mainLight.shadowAttenuation;
+					#if SHADOWS_SCREEN
+						float4 ShadowAtten = SampleScreenSpaceShadowmap(shadowCoord);
+					#else
+						ShadowSamplingData shadowSamplingData = GetMainLightShadowSamplingData();
+						half shadowStrength = GetMainLightShadowStrength();
+						float4 ShadowAtten = SampleShadowmap(shadowCoord, TEXTURE2D_ARGS(_MainLightShadowmapTexture,
+													  sampler_MainLightShadowmapTexture),
+						shadowSamplingData, shadowStrength, false);
+					#endif
+
+
+					return lerp(_Color, _Color2, input.uv.y) * ShadowAtten;
 				}
 
 				ENDHLSL

@@ -82,7 +82,7 @@ void geom(uint primitiveID : SV_PrimitiveID, triangle Varyings input[3], inout T
 	// Construct World -> Tangent Matrix (for aligning grass with mesh normals)
 	float3 normal = input[0].normal;
 	float4 tangent = input[0].tangent;
-	float3 binormal = cross(normal, tangent) * tangent.w;
+	float3 binormal = cross(normal, tangent.xyz) * tangent.w;
 
 	float3x3 tangentToLocal = float3x3(
 		tangent.x, binormal.x, normal.x,

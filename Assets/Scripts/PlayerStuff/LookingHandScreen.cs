@@ -41,6 +41,7 @@ public class LookingHandScreen : MonoBehaviour
         {
 			Debug.Log("user STARTED looking at object " + name);
         }
+        showScreen(true);
     }
 
     void OnStopLook()
@@ -67,7 +68,7 @@ public class LookingHandScreen : MonoBehaviour
         }
 
         // this.gameObject.GetComponent<Renderer>().enabled = true;
-        showScreen(true);
+        // showScreen(true);
 
         //if (hand.transform.rotation.y > 85 && hand.transform.rotation.y < 110
         //    && hand.transform.rotation.z < -85 && hand.transform.rotation.z > -110)
@@ -79,14 +80,13 @@ public class LookingHandScreen : MonoBehaviour
     // Update is called once per frame
     void Update()
 	{
-        Debug.Log("Hand position : " + hand.transform.rotation);
-
+        // Debug.Log("Hand position : " + hand.transform.rotation);
 
         // STEP 1: setup a Ray variable before we fire a Raycast
         Vector3 rayOrigin = camera.transform.position;
 
 		// shoot a ray based on the HMD's reported rotation
-		Vector3 rayDirection = camera.transform.localRotation * Vector3.forward;
+		Vector3 rayDirection = camera.transform.rotation * Vector3.forward;
 
 		// actually construct the ray
 		Ray ray = new Ray(rayOrigin, rayDirection);

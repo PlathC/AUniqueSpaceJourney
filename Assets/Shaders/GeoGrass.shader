@@ -10,7 +10,6 @@ Shader "Unlit/GeoGrass" {
 		_Height("Height", Float) = 1
 		_RandomHeight("Random Height", Float) = 1
 		_WindStrength("Wind Strength", Float) = 0.1
-		_ShadowStrength("Shadow Strengh", Float) = 0.1
 		[Space]
 		_TessellationUniform("Tessellation Uniform", Range(1, 64)) = 1
 	}
@@ -63,9 +62,6 @@ Shader "Unlit/GeoGrass" {
 			#include "grass_structs.hlsl" 
 			#include "CustomTessellation.hlsl"
 			#include "grass.hlsl"
-			CBUFFER_START(Shadows)
-				float _ShadowStrength;
-			CBUFFER_END
             
 			float4 frag(GeometryOutput input) : SV_Target {
                 UNITY_SETUP_INSTANCE_ID(input);
@@ -98,8 +94,7 @@ Shader "Unlit/GeoGrass" {
                 }
             #endif
 
-
-                //rgb = MixFog(rgb, input.fogCoord);
+                rgb = MixFog(rgb, input.fogCoord);
 
 				return float4(rgb, 1.0);
 			}

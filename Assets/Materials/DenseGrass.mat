@@ -112,6 +112,7 @@ Material:
     - _RandomHeight: 0.6
     - _RandomWidth: 0.1
     - _ReceiveShadows: 1
+    - _ShadowStrength: 0.23
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1

@@ -54,6 +54,9 @@ Varyings domain(TessellationFactors factors, OutputPatch<Varyings, 3> patch, flo
 	MY_DOMAIN_PROGRAM_INTERPOLATE(positionOS)
 	MY_DOMAIN_PROGRAM_INTERPOLATE(normal)
 	MY_DOMAIN_PROGRAM_INTERPOLATE(tangent)
+	MY_DOMAIN_PROGRAM_INTERPOLATE(texcoord)
+	MY_DOMAIN_PROGRAM_INTERPOLATE(fogCoord)
+	MY_DOMAIN_PROGRAM_INTERPOLATE(shadowCoord)
 
 	return v;
 }

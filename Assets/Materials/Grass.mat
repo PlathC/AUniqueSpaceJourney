@@ -96,6 +96,7 @@ Material:
     - _RandomHeight: 0.6
     - _RandomWidth: 0.1
     - _ReceiveShadows: 1
+    - _ShadowStrength: 0.54
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
@@ -113,8 +114,8 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Color: {r: 0.4509804, g: 0.8980392, b: 0.14117648, a: 1}
-    - _Color2: {r: 0.25882354, g: 0.39607844, b: 0.2627451, a: 1}
+    - _Color: {r: 0.35731748, g: 0.6415094, b: 0.16037735, a: 1}
+    - _Color2: {r: 0.1201495, g: 0.18867922, b: 0.12210749, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _HueVariationColor: {r: 1, g: 0.5, b: 0, a: 0.1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}

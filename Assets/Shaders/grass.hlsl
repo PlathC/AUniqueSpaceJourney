@@ -63,6 +63,9 @@ CBUFFER_END
 
 Varyings vert(Attributes input) {
 	Varyings output = (Varyings)0;
+	UNITY_SETUP_INSTANCE_ID(input);
+	UNITY_TRANSFER_INSTANCE_ID(input, output);
+	UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(output);
 
 	VertexPositionInputs vertexInput = GetVertexPositionInputs(input.positionOS.xyz);
 	// Seems like GetVertexPositionInputs doesn't work with SRP Batcher inside geom function?
@@ -72,6 +75,9 @@ Varyings vert(Attributes input) {
 	output.positionWS = vertexInput.positionWS;
 	output.normal = input.normal;
 	output.tangent = input.tangent;
+	output.fogCoord = ComputeFogFactor(output.positionOS.z);
+	output.shadowCoord = GetShadowCoord(vertexInput);
+
 	return output;
 }
 
@@ -114,17 +120,23 @@ void geom(uint primitiveID : SV_PrimitiveID, triangle Varyings input[3], inout T
 	output.positionWS = positionWS + mul(transformMatrix, float3(width, 0, 0));
 	output.positionCS = WorldToHClip(output.positionWS, normalWS);
 	output.uv = float2(0, 0);
+	output.fogCoord = input[0].fogCoord;
+	output.fogCoord = input[0].shadowCoord;
 	triStream.Append(output);
 
 	output.positionWS = positionWS + mul(transformMatrix, float3(-width, 0, 0));
 	output.positionCS = WorldToHClip(output.positionWS, normalWS);
 	output.uv = float2(0, 0);
+	output.fogCoord = input[0].fogCoord;
+	output.fogCoord = input[0].shadowCoord;
 	triStream.Append(output);
 
 	// Final vertex at top of blade
 	output.positionWS = positionWS + mul(transformMatrixWithWind, float3(0, bend, height));
 	output.positionCS = WorldToHClip(output.positionWS, normalWS);
 	output.uv = float2(0, 1);
+	output.fogCoord = input[0].fogCoord;
+	output.fogCoord = input[0].shadowCoord;
 	triStream.Append(output);
 
 	triStream.RestartStrip();

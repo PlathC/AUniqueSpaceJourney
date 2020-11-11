@@ -5,12 +5,12 @@
 This is a Unity VR game for a school project which tell the story of a space traveler that crashed his rocket on a foreign planet. He'll then need to survived in a cave where he has find protection but in which he's followed by strange noises.
 
 <p align="center">
-<img src="https://github.com/PlathC/AUniqueSpaceJourney/blob/main/readme_image/cave_entry.png" alt="Cave Entry" width="300"/><img src="https://github.com/PlathC/AUniqueSpaceJourney/blob/main/readme_image/rocket.png" alt="Player's rocket" width="300"/>
+<img src="https://github.com/PlathC/AUniqueSpaceJourney/blob/main/readme_image/cave_entry.png" alt="Cave Entry" width="350"/><img src="https://github.com/PlathC/AUniqueSpaceJourney/blob/main/readme_image/rocket.png" alt="Player's rocket" width="350"/>
 </p>
 
 ## Installation
 
-The project has been developped and tested with Unity 2019.4.12f1, the URP, and SteamVR.
+The project has been developped and tested with Unity 2019.4.12f1, the Universal Render Pipeline, and SteamVR.
 
 ### Hardware
 

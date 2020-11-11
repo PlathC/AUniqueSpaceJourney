@@ -1,6 +1,8 @@
 ﻿// @Cyanilux
 // Grass Geometry Shader, Written for Universal RP with help from https://roystan.net/articles/grass-shader.html
 
+// Modified by Cyprien Plateau--Holleville in order to had lightning support.
+
 Shader "Unlit/GeoGrass" {
 	Properties {
 		_Color("Colour", Color) = (1,1,1,1)

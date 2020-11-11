@@ -27,7 +27,7 @@ However the project has been developped and tested on an Oculus Rift S.
 
 ### Prebuilt 
 
-*No current build for the project*
+*Currently no prebuilt for the project*
 
 ## Contributors
 

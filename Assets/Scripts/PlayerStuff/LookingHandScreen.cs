@@ -26,7 +26,6 @@ public class LookingHandScreen : MonoBehaviour
 		if (Camera.main)
         {
 			camera = Camera.main;
-            // this.gameObject.GetComponent<Renderer>().enabled = false;
             showScreen(false);
         } 
 		else
@@ -50,7 +49,6 @@ public class LookingHandScreen : MonoBehaviour
         {
 			Debug.Log("user STOPPED looking at object " + name);
         }
-        // this.gameObject.GetComponent<Renderer>().enabled = false;
         showScreen(false);
     }
 
@@ -67,7 +65,6 @@ public class LookingHandScreen : MonoBehaviour
             Debug.Log("Hand position : " + hand.transform.rotation);
         }
 
-        // this.gameObject.GetComponent<Renderer>().enabled = true;
         // showScreen(true);
 
         //if (hand.transform.rotation.y > 85 && hand.transform.rotation.y < 110

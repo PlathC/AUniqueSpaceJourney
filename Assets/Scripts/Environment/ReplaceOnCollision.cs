@@ -1,17 +1,35 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
-
+using UnityEngine.VFX;
 
 [RequireComponent(typeof(Collider))]
 public class ReplaceOnCollision : MonoBehaviour
 {
     [SerializeField]
-    private GameObject ReplacementPrefab;
+    private GameObject replacementPrefab;
+
+    [SerializeField]
+    private GameObject disparitionEffect;
 
     private void OnCollisionEnter(Collision collision)
     {
-        Instantiate(ReplacementPrefab, transform.position, transform.rotation);
+        if(replacementPrefab)
+        {
+            Instantiate(replacementPrefab, transform.position, transform.rotation);
+        }
+
+        if (disparitionEffect)
+        {
+            Instantiate(disparitionEffect, transform.position, transform.rotation);
+            var visualEffect = disparitionEffect.GetComponent<VisualEffect>();
+            if (visualEffect)
+            {
+                visualEffect.Play();
+            }
+        }
+            Instantiate(disparitionEffect, transform.position, transform.rotation);
         Destroy(gameObject);
     }
 }

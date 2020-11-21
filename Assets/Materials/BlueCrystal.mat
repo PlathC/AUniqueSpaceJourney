@@ -38,5 +38,5 @@ Material:
     - _Metallic: 0
     - _Smoothness: 0
     m_Colors:
-    - _EmissionColor: {r: 0, g: 0.3455166, b: 1.1369168, a: 1}
+    - _EmissionColor: {r: 0, g: 0.7013904, b: 2.270603, a: 1}
     - _EmissionColor2: {r: 1.059274, g: 0, b: 0, a: 1}

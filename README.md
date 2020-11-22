@@ -34,3 +34,7 @@ However the project has been developped and tested on an Oculus Rift S.
 [Clément Pétrault](https://github.com/fatalkiller)
 
 [Cyprien Plateau--Holleville](https://github.com/PlathC)
+
+## Licenses
+
+[Cat Creature 3D Model](https://sketchfab.com/3d-models/cat-creature-b475f985a90640648746a8e5371f0505) by [dorin](https://sketchfab.com/dorin)

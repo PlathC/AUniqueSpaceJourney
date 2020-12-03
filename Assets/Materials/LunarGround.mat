@@ -118,7 +118,7 @@ Material:
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
-    - _HeightControll: 0.11
+    - _HeightControll: -1.8
     - _HeightTransition: 0
     - _Metallic: 0
     - _Metallic0: 0
@@ -142,11 +142,11 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - UpperLevelColor: {r: 0.33962262, g: 0.2316883, b: 0.11053755, a: 0}
+    - UpperLevelColor: {r: 0.38679245, g: 0.24688265, b: 0.07058821, a: 0}
     - _BaseColor: {r: 0.764151, g: 0.61636704, b: 0.61636704, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _LowerLevelColor: {r: 0.6415094, g: 0.46894556, b: 0.26931292, a: 1}
+    - _LowerLevelColor: {r: 0.09433959, g: 0.04116635, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
 --- !u!114 &6080444924087344723
 MonoBehaviour:

@@ -88,7 +88,6 @@ namespace Valve.VR.InteractionSystem
         public bool showDebugInteractables = false;
 
         public bool controllerVisible = false;
-
         public struct AttachedObject
         {
             public GameObject attachedObject;
@@ -539,8 +538,6 @@ namespace Valve.VR.InteractionSystem
                     }
                 }
             }
-
-
 
             if (attachedObject.HasAttachFlag(AttachmentFlags.TurnOnKinematic))
             {

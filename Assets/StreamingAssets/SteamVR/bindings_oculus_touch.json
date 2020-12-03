@@ -305,8 +305,8 @@
                      "output" : "/actions/default/in/toggleonofftool"
                   }
                },
-               "mode" : "button",
-               "path" : "/user/hand/left/input/y"
+               "mode" : "toggle_button",
+               "path" : "/user/hand/left/input/trigger"
             },
             {
                "inputs" : {
@@ -314,8 +314,26 @@
                      "output" : "/actions/default/in/toggleonofftool"
                   }
                },
+               "mode" : "toggle_button",
+               "path" : "/user/hand/right/input/trigger"
+            },
+            {
+               "inputs" : {
+                  "click" : {
+                     "output" : "/actions/default/in/tutonext"
+                  }
+               },
                "mode" : "button",
-               "path" : "/user/hand/right/input/y"
+               "path" : "/user/hand/left/input/trigger"
+            },
+            {
+               "inputs" : {
+                  "click" : {
+                     "output" : "/actions/default/in/tutonext"
+                  }
+               },
+               "mode" : "button",
+               "path" : "/user/hand/right/input/trigger"
             }
          ]
       },

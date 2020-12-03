@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using Valve.VR;
@@ -11,63 +12,75 @@ namespace AUSJ
         public float startThirst = 30f;
         public float startHunger = 45f;
         public float startEnergy = 90f;
-        public Hand hand;
         public float decreaseStep = 2f;
         public float decreaseRandomMax = 3f;
-        public TextMeshPro playerScreen;
+        
+        private Hand hand;
+        private TextMeshPro playerScreen;
+        private GameObject playerWatch;
         private float currentThirst;
         private float currentHunger;
         private float currentEnergy;
 
-        private Valve.VR.InteractionSystem.Player player = null;
-        private Coroutine hintCoroutine = null;
-        public SteamVR_Action_Boolean teleportAction = SteamVR_Input.GetAction<SteamVR_Action_Boolean>("ToggleOnOffTool");
+        public GameObject PlayerWatch { get => playerWatch; }
+        public TextMeshPro PlayerScreen { get => playerScreen; }
+
+        // private Valve.VR.InteractionSystem.Player player = null;
+        // public SteamVR_Action_Boolean teleportAction = SteamVR_Input.GetAction<SteamVR_Action_Boolean>("ToggleOnOffTool");
 
         void Start()
         {
-            // GameObject textMeshPro = GameObject.FindGameObjectsWithTag("Player-personal-screen");
-            // playerScreen = textMeshPro.GetComponent<TextMeshPro>();
-            player = Valve.VR.InteractionSystem.Player.instance;
+            // Get Playerscreen
+            try
+            {
+                playerScreen = GameObject.FindGameObjectsWithTag("playerScreen")[0].GetComponent<TextMeshPro>();
+            }
+            catch (IndexOutOfRangeException)
+            {
+                throw new Exception("Player screen TAG not found");
+            }
 
+            try
+            {
+                hand = GameObject.Find("LeftHand").GetComponent<Hand>();
+            }
+            catch (Exception)
+            {
+                throw new Exception("Left Hand TAG cannot be found");
+            }
+
+            try
+            {
+                playerWatch = GameObject.FindGameObjectsWithTag("playerWatch")[0];
+            }
+            catch (Exception)
+            {
+                throw new Exception("Player watch TAG cannot be found");
+            }
+
+            // Disable player screen
+            playerScreen.transform.gameObject.SetActive(false);
+
+            // Change watch texture
+            playerWatch.GetComponent<Renderer>().material = new Material(Shader.Find("Shader Graphs/Glowing red"));
+            // playerWatch.GetComponent<Renderer>().material = new Material(Shader.Find("Shader Graphs/Glowing blue"));
+
+            // Player instance
+            // player = Valve.VR.InteractionSystem.Player.instance;
+
+            // Set initial stats
             this.currentThirst = this.startThirst;
             this.currentHunger = this.startHunger;
             this.currentEnergy = this.startEnergy;
 
             // Init player stats
-            UpdatePlayerScreen();
+            // UpdatePlayerScreen();
 
             // Decrease hunger and thirst every minute
             // InvokeRepeating("UpdatePlayerCondition", 10, 3);
-
-            // SteamVR_Action_Boolean toggleAction = SteamVR_Input.GetAction<SteamVR_Action_Boolean>("ToggleOnOffTool");
-            hand = GameObject.Find("LeftHand").GetComponent<Hand>();
-            // Debug.Log(hand);
-            // Debug.Log(toggleAction);
-            // ControllerButtonHints.ShowButtonHint(hand, toggleAction);
-            // ControllerButtonHints.ShowTextHint(hand, toggleAction, "Outil ON/OFF", true);
-
-            // ControllerButtonHints.HideAllButtonHints(hand);
-            // ControllerButtonHints.HideAllTextHints(hand);
-            // ControllerButtonHints.ShowTextHint(hand, hand.grabGripAction, "Outil ON/OFF", true);
-            Invoke("TestHand", 5.0f);
-            //Invoke("TestHandCancel", 10.0f);
         }
 
-        private void TestHand()
-        {
-            // SteamVR_Action_Boolean toggleAction = SteamVR_Input.GetAction<SteamVR_Action_Boolean>("ToggleOnOffTool");
-            SteamVR_Action_Boolean toggleAction = SteamVR_Input.GetAction<SteamVR_Action_Boolean>("Teleport");
-            //ControllerButtonHints.ShowButtonHint(hand, hand.uiInteractAction);
-            //ControllerButtonHints.ShowTextHint(hand, toggleAction, "Toggle On/Off Tool", true);
-            ControllerButtonHints.ShowTextHint(hand, toggleAction, "Teleport", true);
-        }
-
-        private void TestHandCancel()
-        {
-            ControllerButtonHints.HideAllTextHints(hand);
-        }
-
-        private void UpdatePlayerScreen()
+        public void UpdatePlayerScreen()
         {
             playerScreen.text = "# Statut du joueur" + "\n";
             playerScreen.text += "<color=\"blue\">Soif       [" + this.ComputeBarStat(this.currentThirst) + "] " + (int)this.currentThirst + "% </color>" + "\n";
@@ -99,13 +112,13 @@ namespace AUSJ
         {
             // Hunger
             this.currentHunger -= decreaseStep;
-            this.currentHunger -= Random.Range(0f, decreaseRandomMax);
+            this.currentHunger -= UnityEngine.Random.Range(0f, decreaseRandomMax);
             if (this.currentHunger < 0) this.currentHunger = 0;
             this.currentHunger = this.currentHunger % 100;
 
             // Thirst
             this.currentThirst -= decreaseStep; 
-            this.currentThirst -= Random.Range(0f, decreaseRandomMax);
+            this.currentThirst -= UnityEngine.Random.Range(0f, decreaseRandomMax);
             if (this.currentThirst < 0) this.currentThirst = 0;
             this.currentThirst = this.currentThirst % 100;
 

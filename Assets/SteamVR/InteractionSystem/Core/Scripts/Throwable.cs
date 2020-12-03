@@ -40,7 +40,8 @@ namespace Valve.VR.InteractionSystem
         [Tooltip( "When detaching the object, should it return to its original parent?" )]
 		public bool restoreOriginalParent = false;
 
-
+        [Tooltip("Disable Kinematic on object attach to hand (mandatory for holster tools)")]
+        public bool disableKinematicOnAttach = false;
 
 		protected VelocityEstimator velocityEstimator;
         protected bool attached = false;
@@ -154,7 +155,6 @@ namespace Valve.VR.InteractionSystem
 			attachTime = Time.time;
 			attachPosition = transform.position;
 			attachRotation = transform.rotation;
-
 		}
 
 

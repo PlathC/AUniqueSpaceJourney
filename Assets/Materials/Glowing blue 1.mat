@@ -21,7 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Glowing blue 1
-  m_Shader: {fileID: -6465566751694194690, guid: 38b54ed83d298dd4dab5956f0ecbda33,
+  m_Shader: {fileID: -6465566751694194690, guid: ba00ead8f0186414e89d1e846ca5b3f4,
     type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4

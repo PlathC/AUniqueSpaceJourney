@@ -33,9 +33,10 @@ namespace Valve.VR.InteractionSystem
         public static float teleportLastActiveTime;
 
         private bool canRotate = true;
+        
+        public bool CanRotate { set => canRotate = value; }
 
         public float canTurnEverySeconds = 0.4f;
-
 
         private void Start()
         {
@@ -94,6 +95,8 @@ namespace Valve.VR.InteractionSystem
 
 
         private Coroutine rotateCoroutine;
+
+
         public void RotatePlayer(float angle)
         {
             if (rotateCoroutine != null)

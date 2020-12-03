@@ -8,10 +8,10 @@ using UnityEngine.VFX;
 public class ReplaceOnCollision : MonoBehaviour
 {
     [SerializeField]
-    private GameObject replacementPrefab;
+    private GameObject replacementPrefab = null;
 
     [SerializeField]
-    private GameObject disparitionEffect;
+    private GameObject disparitionEffect = null;
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -29,7 +29,7 @@ public class ReplaceOnCollision : MonoBehaviour
                 visualEffect.Play();
             }
         }
-            Instantiate(disparitionEffect, transform.position, transform.rotation);
+        Instantiate(disparitionEffect, transform.position, transform.rotation);
         Destroy(gameObject);
     }
 }

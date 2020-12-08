@@ -459,6 +459,7 @@ GameObject:
   - component: {fileID: 2373219230018413275}
   - component: {fileID: 1158748728}
   - component: {fileID: 1158748720}
+  - component: {fileID: 2953123661590284261}
   m_Layer: 0
   m_Name: Hammer_VR
   m_TagString: hammer
@@ -726,3 +727,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _SnapPosition: 0
   distanceTrigger: 0.25
+  impactMagnifier: 100
+--- !u!114 &2953123661590284261
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9209769431237149318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13a8ac9f6cdc19e4797ef88010aee970, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  constantVibration: 0
+  onCollisionVibrate: 1

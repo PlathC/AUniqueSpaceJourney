@@ -12,7 +12,7 @@ namespace Valve.VR.InteractionSystem
 	public abstract class TeleportMarkerBase : MonoBehaviour
 	{
 		public bool locked = false;
-		public bool markerActive = true;
+		public bool markerActive = false;
 
 		//-------------------------------------------------
 		public virtual bool showReticle

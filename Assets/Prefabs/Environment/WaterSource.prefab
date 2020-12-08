@@ -57,9 +57,12 @@ VisualEffect:
       m_Array: []
     m_Vector3f:
       m_Array:
-      - m_Value: {x: 22.273, y: 1.203, z: 16.592}
+      - m_Value: {x: 23.259, y: 1.2075, z: 16.592}
         m_Name: AttractivePoint
         m_Overridden: 1
+      - m_Value: {x: 0.1674103, y: 0.2353667, z: 0.2457707}
+        m_Name: KillAABBSize
+        m_Overridden: 0
     m_Vector4f:
       m_Array: []
     m_Uint:
@@ -128,7 +131,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ExecuteInEditor: 1
-  m_Bindings: []
+  m_Bindings:
+  - {fileID: 822273185851774821}
   m_VisualEffect: {fileID: 822273185851774823}
 --- !u!114 &822273185851774821
 MonoBehaviour:
@@ -159,7 +163,7 @@ GameObject:
   - component: {fileID: 822273186295473939}
   m_Layer: 0
   m_Name: WaterSource
-  m_TagString: Untagged
+  m_TagString: waterSource
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -171,7 +175,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 822273186295473940}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -64.807, y: 55.193, z: -59.168}
   m_LocalScale: {x: 0.43172273, y: 0.43172273, z: 0.43172273}
   m_Children:
@@ -234,8 +238,8 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 822273186295473940}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.8
   m_Center: {x: 0, y: 0, z: 0}

@@ -68,12 +68,13 @@ Material:
     - _Cull: 2
     - _Cutoff: 0.5
     - _DstBlend: 0
+    - _EmissionDivider: 87.3
     - _EnvironmentReflections: 1
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
-    - _IOR: 0
-    - _Metallic: 0
+    - _IOR: -0.062
+    - _Metallic: 0.877
     - _OcclusionStrength: 1
     - _QueueOffset: 0
     - _ReceiveShadows: 1

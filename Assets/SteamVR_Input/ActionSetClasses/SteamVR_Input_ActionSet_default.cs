@@ -105,14 +105,6 @@ namespace Valve.VR
             }
         }
         
-        public virtual SteamVR_Action_Boolean NextTool
-        {
-            get
-            {
-                return SteamVR_Actions.default_NextTool;
-            }
-        }
-        
         public virtual SteamVR_Action_Boolean ToggleOnOffTool
         {
             get
@@ -126,6 +118,14 @@ namespace Valve.VR
             get
             {
                 return SteamVR_Actions.default_TutoNext;
+            }
+        }
+        
+        public virtual SteamVR_Action_Single EnableTool
+        {
+            get
+            {
+                return SteamVR_Actions.default_EnableTool;
             }
         }
         

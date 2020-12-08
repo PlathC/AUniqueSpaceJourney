@@ -9,23 +9,24 @@ namespace AUSJ
 {
     public class Tutorial : IState
     {
-        private Session m_session;
-        private Player m_player;
+        private Session m_session = null;
+        private Player m_player = null;
 
-        private SteamVR_Action_Boolean nextAction;
+        private SteamVR_Action_Boolean nextAction = null;
         private SteamVR_Input_Sources inputSource;
         
-        private TextMeshPro screenTuto;
-        private GameObject playerScreen;
+        private TextMeshPro screenTuto = null;
+        private GameObject playerScreen = null;
 
-        private Transform snapTurnObj;
-        private Transform teleporting;
+        private Transform snapTurnObj = null;
+        private Transform teleporting = null;
 
         private int nbPiecesGatheredWatch = 0;
         private int nbPieces = 3;
 
-        private GameObject hammer;
-        private GameObject waterTool;
+        private GameObject hammer = null;
+        private GameObject waterTool = null;
+        private GameObject flashLight = null;
 
         private enum TutorialState
         {
@@ -76,10 +77,9 @@ namespace AUSJ
             }
 
             // initialize tuto (gather pieces instructions...)
-            // Transform flashlight = GameObject.FindGameObjectsWithTag("Player")[0].gameObject.transform.Find("FlashLight"); // chercher dans childs of childs
-            // Transform flashlight = GameObject.FindGameObjectsWithTag("FlashLight")[0];
-
-            /*
+            //Transform flashlight = GameObject.FindGameObjectsWithTag("Player")[0].gameObject.transform.Find("FlashLight"); // chercher dans childs of childs
+            flashLight = GameObject.FindGameObjectsWithTag("FlashLight")[0];
+            
             // Disable snap turn
             snapTurnObj = GameObject.FindGameObjectsWithTag("Player")[0].gameObject.transform.Find("Snap Turn");
             snapTurnObj.GetComponent<SnapTurn>().CanRotate = false;
@@ -90,7 +90,6 @@ namespace AUSJ
 
             // Launch coroutine indications screen
             m_session.StartCoroutine(IndicScreen());
-            */
         }
 
         IEnumerator IndicScreen()

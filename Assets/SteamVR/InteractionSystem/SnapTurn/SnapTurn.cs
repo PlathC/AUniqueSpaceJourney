@@ -4,6 +4,7 @@
 
 using UnityEngine;
 using System.Collections;
+using UnityEngine.Events;
 
 namespace Valve.VR.InteractionSystem
 {
@@ -38,9 +39,15 @@ namespace Valve.VR.InteractionSystem
 
         public float canTurnEverySeconds = 0.4f;
 
+        public UnityEvent afterSnap;
+
         private void Start()
         {
             AllOff();
+            if (afterSnap == null)
+            {
+                afterSnap = new UnityEvent();
+            }
         }
 
         private void AllOff()
@@ -156,6 +163,7 @@ namespace Valve.VR.InteractionSystem
 
             fx.SetActive(false);
             canRotate = true;
+            afterSnap.Invoke();
         }
 
         void ShowRotateFX(GameObject fx)

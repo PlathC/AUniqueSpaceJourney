@@ -66,19 +66,19 @@ namespace Valve.VR.InteractionSystem
 		//-------------------------------------------------
 		public override void Highlight( bool highlight )
 		{
-			if ( !locked )
-			{
-				highlighted = highlight;
+			//if ( !locked )
+			//{
+			//	highlighted = highlight;
 
-				if ( highlight )
-				{
-					areaMesh.material = Teleport.instance.areaHighlightedMaterial;
-				}
-				else
-				{
-					areaMesh.material = Teleport.instance.areaVisibleMaterial;
-				}
-			}
+			//	if ( highlight )
+			//	{
+			//		areaMesh.material = Teleport.instance.areaHighlightedMaterial;
+			//	}
+			//	else
+			//	{
+			//		areaMesh.material = Teleport.instance.areaVisibleMaterial;
+			//	}
+			//}
 		}
 
 

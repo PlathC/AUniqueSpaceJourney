@@ -11,7 +11,7 @@ namespace AUSJ
     {
         public float startThirst = 30f;
         public float startHunger = 45f;
-        public float startEnergy = 90f;
+        //public float startEnergy = 90f; // NOT USED YET
         public float decreaseStep = 2f;
         public float decreaseRandomMax = 3f;
         
@@ -20,13 +20,10 @@ namespace AUSJ
         private GameObject playerWatch;
         private float currentThirst;
         private float currentHunger;
-        private float currentEnergy;
+        //private float currentEnergy; // NOT USED YET
 
         public GameObject PlayerWatch { get => playerWatch; }
         public TextMeshPro PlayerScreen { get => playerScreen; }
-
-        // private Valve.VR.InteractionSystem.Player player = null;
-        // public SteamVR_Action_Boolean teleportAction = SteamVR_Input.GetAction<SteamVR_Action_Boolean>("ToggleOnOffTool");
 
         void Start()
         {
@@ -71,7 +68,7 @@ namespace AUSJ
             // Set initial stats
             this.currentThirst = this.startThirst;
             this.currentHunger = this.startHunger;
-            this.currentEnergy = this.startEnergy;
+            //this.currentEnergy = this.startEnergy;
 
             // Init player stats
             // UpdatePlayerScreen();
@@ -85,7 +82,7 @@ namespace AUSJ
             playerScreen.text = "# Statut du joueur" + "\n";
             playerScreen.text += "<color=\"blue\">Soif       [" + this.ComputeBarStat(this.currentThirst) + "] " + (int)this.currentThirst + "% </color>" + "\n";
             playerScreen.text += "<color=\"green\">Faim     [" + this.ComputeBarStat(this.currentHunger) + "] " + (int)this.currentHunger + "% </color>" + "\n";
-            playerScreen.text += "<color=\"red\">Energie [" + this.ComputeBarStat(this.currentEnergy) + "] " + (int)this.currentEnergy + "% </color>" + "\n";
+            //playerScreen.text += "<color=\"red\">Energie [" + this.ComputeBarStat(this.currentEnergy) + "] " + (int)this.currentEnergy + "% </color>" + "\n";
         }
 
         private string ComputeBarStat(float percent)
@@ -108,7 +105,7 @@ namespace AUSJ
         /// <summary>
         /// Decrease player conditions periodically by "decreaseStep" + Random between 1 and 6 %
         /// </summary>
-        private void UpdatePlayerCondition()
+        public void UpdatePlayerCondition()
         {
             // Hunger
             this.currentHunger -= decreaseStep;
@@ -126,9 +123,41 @@ namespace AUSJ
             UpdatePlayerScreen();
         }
 
+        /// <summary>
+        /// Restore hunger by X percent in parameter
+        /// </summary>
+        /// <param name="percent">Percentage to restore</param>
+        public void RestoreHunger(int percent)
+        {
+            // Restore hunger
+            currentHunger += percent;
+            
+            // Cap current hunger
+            currentHunger = currentHunger % 100;
+
+            // Update player stats screen
+            UpdatePlayerScreen();
+        }
+
+        /// <summary>
+        /// Restore thirst by X percent in parameter
+        /// </summary>
+        /// <param name="percent">Percentage to restore</param>
+        private void RestoreThirst(int percent)
+        {
+            // Restore thirst
+            currentThirst += percent;
+
+            // Cap current thirst
+            currentThirst = currentThirst % 100;
+
+            // Update player stats screen
+            UpdatePlayerScreen();
+        }
+
         private void Update()
         {
-            // Set screen to new stats
+
         }
     }
 }

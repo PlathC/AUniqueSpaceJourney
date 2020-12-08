@@ -11,6 +11,10 @@ TagManager:
   - waterTool
   - toolLocation
   - holster
+  - leftHand
+  - rightHand
+  - waterSource
+  - vacuumBag
   layers:
   - Default
   - TransparentFX

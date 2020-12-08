@@ -113,6 +113,9 @@ namespace Valve.VR.InteractionSystem
 
 		SteamVR_Events.Action chaperoneInfoInitializedAction;
 
+		[Header("Custom")]
+		public UnityEvent teleportEnd;
+
 		// Events
 
 		public static SteamVR_Events.Event< float > ChangeScene = new SteamVR_Events.Event< float >();
@@ -168,6 +171,11 @@ namespace Valve.VR.InteractionSystem
 			float invalidReticleStartingScale = invalidReticleTransform.localScale.x;
 			invalidReticleMinScale *= invalidReticleStartingScale;
 			invalidReticleMaxScale *= invalidReticleStartingScale;
+
+			if (teleportEnd == null)
+            {
+				teleportEnd = new UnityEvent();
+            }
 		}
 
 
@@ -852,6 +860,7 @@ namespace Valve.VR.InteractionSystem
 			headAudioSource.transform.SetParent( player.hmdTransform );
 			headAudioSource.transform.localPosition = Vector3.zero;
 			PlayAudioClip( headAudioSource, teleportSound );
+			teleportEnd.Invoke();
 
 			Invoke( "TeleportPlayer", currentFadeTime );
 		}

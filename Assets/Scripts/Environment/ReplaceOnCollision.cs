@@ -13,7 +13,7 @@ public class ReplaceOnCollision : MonoBehaviour
     [SerializeField]
     private GameObject disparitionEffect = null;
 
-    private void OnCollisionEnter(Collision collision)
+    public void BreakCrystal()
     {
         if(replacementPrefab)
         {

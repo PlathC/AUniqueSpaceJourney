@@ -45,9 +45,9 @@ GameObject:
   - component: {fileID: 2293049685592127199}
   - component: {fileID: 2293049685592127185}
   - component: {fileID: 2293049685592127184}
-  - component: {fileID: 2293049685592127188}
   - component: {fileID: 2293049685592127187}
   - component: {fileID: 2293049685592127186}
+  - component: {fileID: 2860360909150521329}
   m_Layer: 0
   m_Name: Vacuum_VR
   m_TagString: waterTool
@@ -257,20 +257,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   interactable: {fileID: 0}
---- !u!114 &2293049685592127188
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2293049685592127198}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8d4cc6cf300b3e4bb1411c4e041030c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  teleportAllowed: 1
-  overrideHoverLock: 1
 --- !u!114 &2293049685592127187
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -285,6 +271,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _SnapPosition: 1
   distanceTrigger: 0.25
+  impactMagnifier: 100
 --- !u!114 &2293049685592127186
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -314,6 +301,20 @@ MonoBehaviour:
   previewPoseSelection: 0
   blendingBehaviours: []
   scale: 1
+--- !u!114 &2860360909150521329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2293049685592127198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13a8ac9f6cdc19e4797ef88010aee970, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  constantVibration: 0
+  onCollisionVibrate: 1
 --- !u!1 &4853542108735743698
 GameObject:
   m_ObjectHideFlags: 0

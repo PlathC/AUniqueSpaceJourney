@@ -12,12 +12,18 @@ namespace AUSJ
         public bool followHeadPosition = true;
         public bool followHeadRotation = false;
 
+        private float playerSize = 0;
+
         // Start is called before the first frame update
         void Start()
         {
             try
             {
-                VRCamera = GameObject.FindGameObjectsWithTag("MainCamera")[0];
+                //VRCamera = GameObject.FindGameObjectsWithTag("MainCamera")[0];
+                VRCamera = Camera.main.gameObject;
+                playerSize = VRCamera.transform.position.y / 2f;
+                // transform.parent = VRCamera.transform;
+                //transform.position = new Vector3(0.07f, - VRCamera.transform.position.y / 2, -0.2f);
             }
             catch (IndexOutOfRangeException)
             {
@@ -26,12 +32,18 @@ namespace AUSJ
         }
 
         // Update is called once per frame
-        void Update()
+        void LateUpdate()
         {
             if (followHeadPosition)
             {
-                transform.position = new Vector3(VRCamera.transform.position.x + 0.07f, VRCamera.transform.position.y / 2, VRCamera.transform.position.z - 0.2f);
+                transform.position = new Vector3(VRCamera.transform.position.x + 0.07f, VRCamera.transform.position.y - playerSize, VRCamera.transform.position.z - 0.2f);
+                // Debug.Log("transform ==> " + transform.position);
+                //transform.position = new Vector3(VRCamera.transform.position.x + 0.07f, VRCamera.transform.position.y / 2, VRCamera.transform.position.z - 0.2f);
+                //Vector3 newPosition = VRCamera.transform.forward;
+                //newPosition.y = VRCamera.transform.position.y / 2;
+                //transform.position = VRCamera.transform.forward;
             }
+
 
             if (followHeadRotation)
             {

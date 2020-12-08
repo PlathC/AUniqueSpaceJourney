@@ -50,16 +50,16 @@
       "type": "boolean"
     },
     {
-      "name": "/actions/default/in/NextTool",
-      "type": "boolean"
-    },
-    {
       "name": "/actions/default/in/ToggleOnOffTool",
       "type": "boolean"
     },
     {
       "name": "/actions/default/in/TutoNext",
       "type": "boolean"
+    },
+    {
+      "name": "/actions/default/in/EnableTool",
+      "type": "vector1"
     },
     {
       "name": "/actions/default/out/Haptic",
@@ -182,9 +182,9 @@
       "/actions/platformer/in/Jump": "Jump",
       "/actions/default/in/SnapTurnLeft": "Snap Turn (Left)",
       "/actions/default/in/SnapTurnRight": "Snap Turn (Right)",
-      "/actions/default/in/NextTool": "Next Tool",
       "/actions/default/in/ToggleOnOffTool": "Toggle Tool (ON / OFF)",
-      "/actions/default/in/TutoNext": "Next step tutorial"
+      "/actions/default/in/TutoNext": "Next step tutorial",
+      "/actions/default/in/EnableTool": "Toggle tool ON"
     }
   ]
 }

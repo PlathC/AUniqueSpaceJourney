@@ -127,7 +127,10 @@ namespace AUSJ
             StopCoroutine(PulseWave(interactable.attachedToHand));
 
             // Stop animation
-            lastWaterSource.transform.GetChild(0).gameObject.SetActive(false);
+            if (lastWaterSource)
+            {
+                lastWaterSource.transform.GetChild(0).gameObject.SetActive(false);
+            }
 
             // Stop sound
             audioSource.Stop();

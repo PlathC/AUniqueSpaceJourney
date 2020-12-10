@@ -15,6 +15,7 @@ TagManager:
   - rightHand
   - waterSource
   - vacuumBag
+  - flashlight
   layers:
   - Default
   - TransparentFX

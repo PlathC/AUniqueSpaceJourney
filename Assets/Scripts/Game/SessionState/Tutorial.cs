@@ -76,9 +76,17 @@ namespace AUSJ
                 throw new Exception("Water Tool TAG not found");
             }
 
+            try
+            {
+                flashLight = GameObject.FindGameObjectsWithTag("flashlight")[0];
+            }
+            catch (IndexOutOfRangeException)
+            {
+                throw new Exception("flashlight TAG not found");
+            }
+
+            
             // initialize tuto (gather pieces instructions...)
-            //Transform flashlight = GameObject.FindGameObjectsWithTag("Player")[0].gameObject.transform.Find("FlashLight"); // chercher dans childs of childs
-            flashLight = GameObject.FindGameObjectsWithTag("FlashLight")[0];
             
             // Disable snap turn
             snapTurnObj = GameObject.FindGameObjectsWithTag("Player")[0].gameObject.transform.Find("Snap Turn");
@@ -130,7 +138,7 @@ namespace AUSJ
             };
 
             // Show control hints
-            m_session.StartCoroutine(ShowControlHints());
+            //m_session.StartCoroutine(ShowControlHints());
 
             // Enable snap turn
             snapTurnObj.GetComponent<SnapTurn>().CanRotate = true;
@@ -148,15 +156,15 @@ namespace AUSJ
             Hand hand = GameObject.Find("LeftHand").GetComponent<Hand>();
             
             // Teleport action
-            SteamVR_Action_Boolean toggleAction = SteamVR_Input.GetAction<SteamVR_Action_Boolean>("Teleport");
+            SteamVR_Action_Boolean teleportAction = SteamVR_Input.GetAction<SteamVR_Action_Boolean>("Teleport");
 
             // Show text hint to help teleport
-            ControllerButtonHints.ShowTextHint(hand, toggleAction, "Teleport", true);
+            ControllerButtonHints.ShowTextHint(hand, teleportAction, "Teleport", true);
 
             // Wait 10sec
             yield return new WaitForSeconds(10);
 
-            ControllerButtonHints.HideAllTextHints(hand);
+            ControllerButtonHints.HideTextHint(hand, teleportAction);
         }
 
         public void BuildWatch()

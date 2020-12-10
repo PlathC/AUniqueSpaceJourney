@@ -62,6 +62,10 @@
       "type": "vector1"
     },
     {
+      "name": "/actions/default/in/FlashLightToggle",
+      "type": "boolean"
+    },
+    {
       "name": "/actions/default/out/Haptic",
       "type": "vibration"
     },
@@ -184,7 +188,8 @@
       "/actions/default/in/SnapTurnRight": "Snap Turn (Right)",
       "/actions/default/in/ToggleOnOffTool": "Toggle Tool (ON / OFF)",
       "/actions/default/in/TutoNext": "Next step tutorial",
-      "/actions/default/in/EnableTool": "Toggle tool ON"
+      "/actions/default/in/EnableTool": "Toggle tool ON",
+      "/actions/default/in/FlashLightToggle": "Turn ON/OFF Flashlight"
     }
   ]
 }

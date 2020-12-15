@@ -11,18 +11,61 @@ namespace AUSJ
     [RequireComponent(typeof(Interactable))]
     public class HolsterTool : MonoBehaviour, ICanHolster
     {
-        public int _SnapPosition;
-        public float distanceTrigger = 0.25f;
-        public float impactMagnifier = 100f;
-     
+        [SerializeField]
+        private int _SnapPosition;
+
+        [SerializeField]
+        private float distanceTrigger = 0.2f;
+
+        [SerializeField]
+        private Material defaultMaterial = null;
+
+        [SerializeField]
+        private Material greenMaterial = null;
+
         int ICanHolster.SnapPosition { get => _SnapPosition; set => _SnapPosition = value; }
         private bool isInHolster = false;
+
+        private void OnTriggerStay(Collider other)
+        {
+            try
+            {
+                float distanceToHolder = Vector3.Distance(gameObject.transform.position, other.transform.position);
+                if (distanceToHolder < distanceTrigger)
+                {
+                    other.GetComponent<Renderer>().material = greenMaterial;
+                    other.GetComponent<Outline>().OutlineColor = new Color(0, 255, 0);
+                }
+                else
+                {
+                    other.GetComponent<Renderer>().material = defaultMaterial;
+                    other.GetComponent<Outline>().OutlineColor = new Color(255, 255, 0);
+                }
+            }
+            catch (MissingComponentException)
+            {
+                // do nothing
+            }
+        }
+
+        private void OnTriggerExit(Collider other)
+        {
+            try
+            {
+                other.GetComponent<Renderer>().material = defaultMaterial;
+                other.GetComponent<Outline>().OutlineColor = new Color(255, 255, 0);
+            }
+            catch (MissingComponentException)
+            {
+                // do nothing
+            }
+        }
 
         private void OnDetachedFromHand(Hand hand)
         {
             // Find holsters
             GameObject[] holsters = GameObject.FindGameObjectsWithTag("holster");
-            foreach(GameObject holster in holsters)
+            foreach (GameObject holster in holsters)
             {
                 // Calculate distance between holster and tool detached from hand
                 float distanceToHolder = Vector3.Distance(gameObject.transform.position, holster.transform.position);
@@ -49,9 +92,9 @@ namespace AUSJ
                 }
             }
         }
-        
+
         private void OnAttachedToHand(Hand hand)
-        {           
+        {
             // If tool is in holster
             if (isInHolster)
             {
@@ -61,7 +104,7 @@ namespace AUSJ
                 gameObject.transform.parent.transform.GetChild(gameObject.transform.parent.childCount - 2).GetComponent<MeshRenderer>().enabled = true;
                 // Reset tool parent
                 gameObject.transform.parent = null;
-                
+
                 isInHolster = false;
             }
         }

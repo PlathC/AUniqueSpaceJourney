@@ -22,7 +22,16 @@ namespace AUSJ
         private Material defaultMaterial;
         private bool suckingWater = false;
         private float suckingValue = 0; // Percentage trigger
+        private bool suckingBlocked = false;
 
+        // Water source sizes and scale changes
+        private int timeBlockNextSource = 5;  // in seconds
+        private float timeBeforeNextSuckingStep = 2.0f; // in seconds
+        private int waterSourceDecreaseStep = 0;
+        private float sizeDecreaseStep = 0.1f;
+        private float radiusIncreaseStep = 0.2f;
+        private float waterSourceRestoreThirst = 0.08f;
+        
         [SerializeField]
         private float minimumTriggerGachette = 0.1f;
 
@@ -71,29 +80,59 @@ namespace AUSJ
             }
         }
 
+        private IEnumerator WaitBeforeNextSucking()
+        {
+            suckingBlocked = true;
+            for (int i = 0; i < timeBlockNextSource; i++)
+            {
+                vacuumBag.GetComponent<Renderer>().material = new Material(Shader.Find("Shader Graphs/Glowing red"));
+                yield return new WaitForSeconds(0.5f);
+                vacuumBag.GetComponent<Renderer>().material = defaultMaterial;
+                yield return new WaitForSeconds(0.5f);
+            }
+            suckingBlocked = false;
+        }
+
         private IEnumerator SuckWater()
         {
-            float sizeDecreaseStep = 0.1f;
             while (suckingWater)
             {
-                // Add water to profile bar
-                // ... using suckingValue
-                // Decrease water source scale
-                Vector3 currentScale = waterSourceInVacuumFOV.gameObject.transform.localScale;
-                // If too small => disable render
-                if (currentScale.x < 0.1f)
-                {
-                    waterSourceInVacuumFOV.gameObject.SetActive(false);
-                    // Animation disappearance
-                } else
-                {
-                    // Update scale
-                    Vector3 newScale = new Vector3(currentScale.x - sizeDecreaseStep, currentScale.y - sizeDecreaseStep, currentScale.z - sizeDecreaseStep);
-                    waterSourceInVacuumFOV.gameObject.transform.localScale.Scale(newScale);
+                yield return new WaitForSeconds(timeBeforeNextSuckingStep);
 
-                    // Update speed
+                if (waterSourceInVacuumFOV)
+                {
+                    // Add water to profile bar
+                    // ... using suckingValue
+                    int restoreThirst = (int)(suckingValue * waterSourceRestoreThirst);
+                    Debug.Log(restoreThirst);
+                    GameObject.FindGameObjectsWithTag("Player")[0].GetComponent<Player>().RestoreThirst(restoreThirst);
+
+                    // Decrease water source scale
+                    Vector3 currentScale = waterSourceInVacuumFOV.gameObject.transform.localScale;
+                    waterSourceDecreaseStep++;
+
+                    // If too small => disable render
+                    if (currentScale.x < 0.1f)
+                    {
+                        // Hide gameobject
+                        waterSourceInVacuumFOV.gameObject.SetActive(false);
+                    
+                        // TODO Animation disappearance
+
+                    } else
+                    {
+                        // Update scale
+                        Vector3 newScale = new Vector3(currentScale.x - sizeDecreaseStep, currentScale.y - sizeDecreaseStep, currentScale.z - sizeDecreaseStep);
+                        waterSourceInVacuumFOV.gameObject.transform.localScale = newScale;
+
+                        // Increase collider size
+                        float currentRadius = waterSourceInVacuumFOV.gameObject.GetComponent<SphereCollider>().radius;
+                        waterSourceInVacuumFOV.gameObject.GetComponent<SphereCollider>().radius = currentRadius + radiusIncreaseStep * waterSourceDecreaseStep;
+
+                        // Update speed
+                        waterSourceInVacuumFOV.gameObject.GetComponent<Renderer>().sharedMaterial.SetFloat("_Speed", 3);
+                    }
                 }
-                yield return new WaitForSeconds(2f);
             }
             yield return null;
         }
@@ -110,7 +149,6 @@ namespace AUSJ
                 hand.TriggerHapticPulse(seconds, 1f / seconds, amplitude);
                 amplitude += step;
                 amplitude = Mathf.Abs(Mathf.Cos(amplitude));
-                Debug.Log("VIBRATE : " + amplitude);
                 yield return new WaitForSeconds(0.1f);
             }
         }
@@ -119,6 +157,7 @@ namespace AUSJ
         {
             suckingWater = false;
             suckingValue = 0;
+            waterSourceDecreaseStep = 0;
 
             // Stop sucking
             StopCoroutine(SuckWater()); // Not necessary ??
@@ -127,9 +166,10 @@ namespace AUSJ
             StopCoroutine(PulseWave(interactable.attachedToHand));
 
             // Stop animation
-            if (lastWaterSource)
+            if (lastWaterSource && lastWaterSource.gameObject.activeSelf)
             {
                 lastWaterSource.transform.GetChild(0).gameObject.SetActive(false);
+                lastWaterSource.gameObject.GetComponent<Renderer>().sharedMaterial.SetFloat("_Speed", 1);
             }
 
             // Stop sound
@@ -144,7 +184,7 @@ namespace AUSJ
                 if (newAxis > minimumTriggerGachette && waterSourceInVacuumFOV)
                 {
                     suckingValue = newAxis * 100;
-                    if (!suckingWater)
+                    if (!suckingWater && !suckingBlocked)
                     {
                         suckingWater = true;
 
@@ -165,6 +205,9 @@ namespace AUSJ
                 else if (lastWaterSource && suckingWater)
                 {
                     ResetWaterSucking();
+
+                    // Block new sucking attempts for x seconds to avoid sucking water too fast
+                    StartCoroutine(WaitBeforeNextSucking());
                 }
             } 
             else

@@ -11,7 +11,7 @@ namespace AUSJ
         private SteamVR_Action_Boolean toggleFlashLight;
         private SteamVR_Input_Sources inputSource = SteamVR_Input_Sources.Any; //which controller
 
-        private bool locked = true;
+        private bool locked = false;
 
         public bool Locked { get => locked; set => locked = value; }
 

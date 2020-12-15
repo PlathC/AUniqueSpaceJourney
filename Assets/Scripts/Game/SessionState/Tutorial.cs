@@ -16,24 +16,25 @@ namespace AUSJ
         private SteamVR_Input_Sources inputSource;
         
         private TextMeshPro screenTuto = null;
-        private GameObject playerScreen = null;
 
         private Transform snapTurnObj = null;
         private Transform teleporting = null;
 
-        private int nbPiecesGatheredWatch = 0;
+        public int nbPiecesGatheredWatch = 0;
         private int nbPieces = 3;
 
-        private GameObject hammer = null;
-        private GameObject waterTool = null;
+        private Hand leftHand = null;
         private GameObject flashLight = null;
+
+        private bool watchTutoCompleted = false;
 
         private enum TutorialState
         {
             IndicScreen,
             BuildWatch,
-            FindHammer,
-            FindWaterTool
+            PlayerWatchInstructions,
+            WaitingEndTuto,
+            Complete
         }
 
         private TutorialState m_state;
@@ -44,7 +45,10 @@ namespace AUSJ
             m_session = s;
 
             // State tuto screen
-            m_state = TutorialState.IndicScreen;
+            //m_state = TutorialState.IndicScreen;
+
+            // TESTING
+            m_state = TutorialState.BuildWatch;
 
             nextAction = SteamVR_Input.GetBooleanAction("TutoNext"); // Gachette on any controller
             inputSource = SteamVR_Input_Sources.Any; // Any controller
@@ -60,24 +64,6 @@ namespace AUSJ
 
             try
             {
-                hammer = GameObject.FindGameObjectsWithTag("hammer")[0];
-            }
-            catch (IndexOutOfRangeException)
-            {
-                throw new Exception("Hammer TAG not found");
-            }
-
-            try
-            {
-                waterTool = GameObject.FindGameObjectsWithTag("waterTool")[0];
-            }
-            catch (IndexOutOfRangeException)
-            {
-                throw new Exception("Water Tool TAG not found");
-            }
-
-            try
-            {
                 flashLight = GameObject.FindGameObjectsWithTag("flashlight")[0];
             }
             catch (IndexOutOfRangeException)
@@ -85,19 +71,46 @@ namespace AUSJ
                 throw new Exception("flashlight TAG not found");
             }
 
-            
+            try
+            {
+                leftHand = GameObject.FindGameObjectsWithTag("leftHand")[0].GetComponent<Hand>();
+            }
+            catch (IndexOutOfRangeException)
+            {
+                throw new Exception("leftHand TAG not found");
+            }
+
+            try
+            {
+                // Disable cave entry TP
+                GameObject.Find("SmallPartGround").GetComponent<TeleportAreaCustom>().SetLocked(true);
+            }
+            catch (IndexOutOfRangeException)
+            {
+                throw new Exception("Cave entry ground not found");
+            }
+
+            try
+            {
+                // Disable cave tp
+                GameObject.Find("BigPartGround").GetComponent<TeleportAreaCustom>().SetLocked(true);
+            }
+            catch (IndexOutOfRangeException)
+            {
+                throw new Exception("Cave ground TAG not found");
+            }
+
             // initialize tuto (gather pieces instructions...)
-            
-            // Disable snap turn
-            snapTurnObj = GameObject.FindGameObjectsWithTag("Player")[0].gameObject.transform.Find("Snap Turn");
-            snapTurnObj.GetComponent<SnapTurn>().CanRotate = false;
+            //// Disable snap turn
+            //snapTurnObj = GameObject.FindGameObjectsWithTag("Player")[0].gameObject.transform.Find("Snap Turn");
+            //snapTurnObj.GetComponent<SnapTurn>().CanRotate = false;
 
-            // Disable teleport 
-            teleporting = GameObject.FindGameObjectsWithTag("Player")[0].gameObject.transform.Find("Teleporting");
-            teleporting.gameObject.SetActive(false);
+            //// Disable teleport 
+            //teleporting = GameObject.FindGameObjectsWithTag("Player")[0].gameObject.transform.Find("Teleporting");
+            //teleporting.gameObject.SetActive(false);
 
-            // Launch coroutine indications screen
-            m_session.StartCoroutine(IndicScreen());
+            //// Launch coroutine indications screen
+            //m_session.StartCoroutine(IndicScreen());
         }
 
         IEnumerator IndicScreen()
@@ -138,42 +151,69 @@ namespace AUSJ
             };
 
             // Show control hints
-            //m_session.StartCoroutine(ShowControlHints());
+            //m_session.StartCoroutine(ShowControlHints()); // Not needed because already done by Teleport script
 
-            // Enable snap turn
-            snapTurnObj.GetComponent<SnapTurn>().CanRotate = true;
+            //// Enable snap turn
+            //snapTurnObj.GetComponent<SnapTurn>().CanRotate = true;
 
-            // Enable teleportation
-            teleporting.gameObject.SetActive(true);
+            //// Enable teleportation
+            //teleporting.gameObject.SetActive(true);
 
-            // Tuto screen end => step search watch pieces
-            m_state = TutorialState.BuildWatch;
+            //// Tuto screen end => step search watch pieces
+            //m_state = TutorialState.BuildWatch;
         }
 
         IEnumerator ShowControlHints()
-        {
-            // Find left hand
-            Hand hand = GameObject.Find("LeftHand").GetComponent<Hand>();
-            
+        {           
             // Teleport action
             SteamVR_Action_Boolean teleportAction = SteamVR_Input.GetAction<SteamVR_Action_Boolean>("Teleport");
 
             // Show text hint to help teleport
-            ControllerButtonHints.ShowTextHint(hand, teleportAction, "Teleport", true);
+            ControllerButtonHints.ShowTextHint(leftHand, teleportAction, "Teleport", true);
 
             // Wait 10sec
             yield return new WaitForSeconds(10);
 
-            ControllerButtonHints.HideTextHint(hand, teleportAction);
+            ControllerButtonHints.HideTextHint(leftHand, teleportAction);
         }
 
-        public void BuildWatch()
+        public IEnumerator WatchInstructions()
         {
-            // Activate watch => Blue color
-            m_player.PlayerWatch.GetComponent<Renderer>().material = new Material(Shader.Find("Shader Graphs/Glowing blue"));
+            string txtTuto;
+            float speed = 10f;
 
-            // Enable player screen
-            m_player.PlayerScreen.transform.gameObject.SetActive(false);
+            // Show text instructions on player screen
+            m_player.PlayerWatch.PlayerScreen.alignment = TextAlignmentOptions.TopLeft;
+
+            txtTuto = "Ma montre est réparée !";
+            yield return m_session.StartCoroutine(TextUtils.FadeInText(speed, m_player.PlayerWatch.PlayerScreen, txtTuto));
+            yield return new WaitForSeconds(5);
+
+            txtTuto = "Mon système d'éclairage fonctionne également de nouveau !!";
+            yield return m_session.StartCoroutine(TextUtils.FadeInText(speed, m_player.PlayerWatch.PlayerScreen, txtTuto));
+            yield return new WaitForSeconds(5);
+
+            // Unlock flash light
+            m_player.FlashLight.Locked = false;
+
+            // Show text hint to help turn on the light
+            Hand leftHand = GameObject.Find("LeftHand").GetComponent<Hand>();
+            SteamVR_Action_Boolean toggleLight = SteamVR_Input.GetBooleanAction("FlashLightToggle"); // X  button
+            ControllerButtonHints.ShowTextHint(leftHand, toggleLight, "Allumer la lampe", true);
+
+            // Wait for light to be toggled
+            while (!toggleLight.GetState(inputSource))
+            {
+                yield return new WaitForSeconds(0.1f);
+            };
+
+            // Hide control hint
+            ControllerButtonHints.HideTextHint(leftHand, toggleLight);
+
+            // Show player stats
+            m_player.StartUpdatePlayerConditions();
+
+            watchTutoCompleted = true;
         }
 
         // Function called by session every tick
@@ -181,42 +221,52 @@ namespace AUSJ
         {
             switch (m_state)
             {
-                case TutorialState.IndicScreen:
-                    //Interactable hammerInteractable = hammer.GetComponent<Interactable>();
-                    //Hand hand = GameObject.Find("LeftHand").GetComponent<Hand>();
-                    //GrabTypes startingGrabType = hand.GetGrabStarting();
-                    //if (hammerInteractable.attachedToHand == null && startingGrabType != GrabTypes.None)
-                    //{
-
-                    //}
-                    //if (hammerInteractable != null && hammerInteractable.attachedToHand != null)
-                    //{
-                    //    hammer.transform.position
-                    //    // Snap and de-snap hammer, and disable it
-                    //    //hammer.gameObject.SetActive(false);
-                    //    // Enable hammer selection in tools cycle
-                    //    // configure hand skelet
-                    //}
-                    break;
                 case TutorialState.BuildWatch:
                     // Check number of watch pieces gathered by player
                     // If 3/3 => spawn watch on wrist
                     // Return this or next state
                     if (nbPiecesGatheredWatch == nbPieces)
                     {
-                        BuildWatch();
-                        m_state = TutorialState.FindHammer;
+                        // Lock teleport on exterior cave
+                        GameObject.Find("PlayerGround").GetComponent<TeleportAreaCustom>().SetLocked(true);
+
+                        // Lock cave entry teleport
+                        GameObject.Find("SmallPartGround").GetComponent<TeleportAreaCustom>().SetLocked(true);
+
+                        // Enable watch and player screen
+                        m_player.PlayerWatch.EnableWatch();
+
+                        // Send watch notification
+                        m_player.PlayerWatch.SendWatchNotification();
+
+                        // State waiting for instruction reading
+                        m_state = TutorialState.PlayerWatchInstructions;
+                    } 
+                    else if (nbPiecesGatheredWatch == 2)
+                    {
+                        // Enable cave entry teleport
+                        GameObject.Find("SmallPartGround").GetComponent<TeleportAreaCustom>().SetLocked(false);
                     }
                     break;
-                case TutorialState.FindHammer:
-                    //Interactable hammerInteractable = hammer.GetComponent<Interactable>();
-                    //if (hammerInteractable != null && hammerInteractable.attachedToHand != null)
-                    //{
-                    //    hammer.SetActive(false);
-                    //    // Enable hammer selection in tools cycle
-                    //    // configure hand skelet
-                    //}
+                case TutorialState.PlayerWatchInstructions:
+                    if (m_player.PlayerWatch.LookingWatch)
+                    {
+                        // Start watch tuto
+                        m_session.StartCoroutine(WatchInstructions());
+                        
+                        // Wait for tuto end
+                        m_state = TutorialState.WaitingEndTuto;
+                    }
                     break;
+                case TutorialState.WaitingEndTuto:
+                    if (watchTutoCompleted)
+                    {
+                        m_state = TutorialState.Complete;
+                    }
+                    break;
+                case TutorialState.Complete:
+                    // Go to main story
+                    return new MainStory(m_player, m_session);
             }
             return this;
         }

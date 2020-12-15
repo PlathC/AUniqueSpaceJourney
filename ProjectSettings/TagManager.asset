@@ -16,6 +16,9 @@ TagManager:
   - waterSource
   - vacuumBag
   - flashlight
+  - watchPiece
+  - PlayerCollider
+  - holsterCollider
   layers:
   - Default
   - TransparentFX

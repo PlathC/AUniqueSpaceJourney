@@ -36,7 +36,7 @@ namespace AUSJ
         {
             if (followHeadPosition)
             {
-                transform.position = new Vector3(VRCamera.transform.position.x + 0.07f, VRCamera.transform.position.y - playerSize, VRCamera.transform.position.z - 0.2f);
+                transform.position = new Vector3(VRCamera.transform.position.x + 0.07f, VRCamera.transform.position.y - playerSize, VRCamera.transform.position.z + 0.1f);
                 // Debug.Log("transform ==> " + transform.position);
                 //transform.position = new Vector3(VRCamera.transform.position.x + 0.07f, VRCamera.transform.position.y / 2, VRCamera.transform.position.z - 0.2f);
                 //Vector3 newPosition = VRCamera.transform.forward;

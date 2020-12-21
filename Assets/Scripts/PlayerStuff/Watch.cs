@@ -60,6 +60,11 @@ namespace AUSJ
             StartCoroutine(WatchNotification());
         }
 
+        public void PlayWarningSound()
+        {
+            audioSource.Play();
+        }
+
         private IEnumerator WatchNotification()
         {
             while (!LookingWatch)

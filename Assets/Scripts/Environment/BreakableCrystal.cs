@@ -68,7 +68,7 @@ namespace AUSJ
                     GameObject.FindGameObjectsWithTag("Player")[0].GetComponent<Player>().RestoreHunger(hungerRestored);
 
                     // Break crystal
-                    gameObject.GetComponent<ReplaceOnCollision>().BreakCrystal();
+                    gameObject.GetComponent<ReplaceOnCollision>().DisparitionEffect();
                 }
             }
         }

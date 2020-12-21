@@ -26,9 +26,9 @@ namespace AUSJ
 
         // Water source sizes and scale changes
         private int timeBlockNextSource = 5;  // in seconds
-        private float timeBeforeNextSuckingStep = 2.0f; // in seconds
+        private float timeBeforeNextSuckingStep = 1.0f; // in seconds
         private int waterSourceDecreaseStep = 0;
-        private float sizeDecreaseStep = 0.1f;
+        private float sizeDecreaseStep = 0.05f;
         private float radiusIncreaseStep = 0.2f;
         private float waterSourceRestoreThirst = 0.08f;
         
@@ -104,22 +104,22 @@ namespace AUSJ
                     // Add water to profile bar
                     // ... using suckingValue
                     int restoreThirst = (int)(suckingValue * waterSourceRestoreThirst);
-                    Debug.Log(restoreThirst);
                     GameObject.FindGameObjectsWithTag("Player")[0].GetComponent<Player>().RestoreThirst(restoreThirst);
 
                     // Decrease water source scale
                     Vector3 currentScale = waterSourceInVacuumFOV.gameObject.transform.localScale;
                     waterSourceDecreaseStep++;
-
+                    Debug.Log(currentScale);
                     // If too small => disable render
-                    if (currentScale.x < 0.1f)
+                    if (currentScale.x <= 0.2f)
                     {
-                        // Hide gameobject
-                        waterSourceInVacuumFOV.gameObject.SetActive(false);
-                    
-                        // TODO Animation disappearance
+                        // Animation disappearance
+                        waterSourceInVacuumFOV.gameObject.GetComponent<ReplaceOnCollision>().DisparitionEffect();
 
-                    } else
+                        // Hide gameobject
+                        //waterSourceInVacuumFOV.gameObject.SetActive(false);
+                    }
+                    else
                     {
                         // Update scale
                         Vector3 newScale = new Vector3(currentScale.x - sizeDecreaseStep, currentScale.y - sizeDecreaseStep, currentScale.z - sizeDecreaseStep);
@@ -170,6 +170,11 @@ namespace AUSJ
             {
                 lastWaterSource.transform.GetChild(0).gameObject.SetActive(false);
                 lastWaterSource.gameObject.GetComponent<Renderer>().sharedMaterial.SetFloat("_Speed", 1);
+
+                if (lastWaterSource.gameObject.transform.localScale.x <= 0.2f)
+                {
+                    Destroy(lastWaterSource.gameObject);
+                }
             }
 
             // Stop sound

@@ -9,22 +9,39 @@ namespace AUSJ
 {
     public class Player : MonoBehaviour
     {
-        public float startThirst = 30f;
-        public float startHunger = 45f;
-        //public float startEnergy = 90f; // NOT USED YET
-        public float decreaseStep = 2f;
-        public float decreaseRandomMax = 3f;
+        [SerializeField]
+        private float startThirst = 40f;
         
+        [SerializeField]
+        private float startHunger = 50f;
+
+        //[SerializeField]
+        //private float startEnergy = 90f; // NOT USED YET
+        
+        [SerializeField]
+        private float decreaseStep = 2f;
+        
+        [SerializeField]
+        private float decreaseRandomMax = 3f;
+
+        [SerializeField]
+        [Tooltip("Decrease stats every X seconds")]
+        private float decreaseEvery = 60f; // in sec
+
+        private float decreaseStart = 10; // in sec
+
         //private Hand hand;
         private Watch playerWatch;
         private FlashLight flashLight;
         private TextMeshPro playerScreen;
+        private GameObject holsters;
         private float currentThirst;
         private float currentHunger;
         //private float currentEnergy; // NOT USED YET
 
         public Watch PlayerWatch { get => playerWatch; }
         public FlashLight FlashLight { get => flashLight; set => flashLight = value; }
+        public GameObject Holsters { get => holsters; set => holsters = value; }
 
         void Start()
         {
@@ -46,6 +63,15 @@ namespace AUSJ
                 throw new Exception("flashLight TAG cannot be found");
             }
 
+            try
+            {
+                Holsters = GameObject.Find("Holsters");
+            }
+            catch (Exception)
+            {
+                throw new Exception("Holsters cannot be found");
+            }
+
             // Store player screen reference
             playerScreen = playerWatch.PlayerScreen;
 
@@ -53,33 +79,46 @@ namespace AUSJ
             playerWatch.DisableWatch();
 
             // Disable flashlight by default
-            //FlashLight.Locked = true;
+            FlashLight.Locked = true;
 
-            // Disable cave tp
-            GameObject.Find("BigPartGround").GetComponent<TeleportAreaCustom>().SetLocked(false);
+            // Disable holsters by default
+            Holsters.SetActive(false);
 
             // Set initial stats
-            this.currentThirst = this.startThirst;
-            this.currentHunger = this.startHunger;
-            //this.currentEnergy = this.startEnergy; // NOT USED
+            currentThirst = startThirst;
+            currentHunger = startHunger;
+            //currentEnergy = startEnergy; // NOT USED
         }
 
-        public IEnumerator StartUpdatePlayerConditions()
+        public void StartUpdatePlayerConditions()
         {
-            // First stats appearence animation
-            float speed = 10f;
-            yield return StartCoroutine(TextUtils.FadeInText(speed, playerScreen, UpdatePlayerScreen()));
+            // Show stats
+            playerScreen.text = UpdatePlayerScreen();
 
             // Decrease hunger and thirst every minute
-            InvokeRepeating("UpdatePlayerCondition", 0, 60);
+            InvokeRepeating(nameof(UpdatePlayerCondition), decreaseStart, decreaseEvery);
         }
 
         public string UpdatePlayerScreen()
         {
+            string colorThirst = "blue";
+            string colorHunger = "green";
+
+            // Red color if stats are low
+            if (currentThirst <= 10)
+            {
+                colorThirst = "red";
+            }
+
+            if (currentHunger <= 10)
+            {
+                colorHunger = "red";
+            }
+
             string res = "# Statut du joueur" + "\n";
-            res += "<color=\"blue\">Soif       [" + this.ComputeBarStat(this.currentThirst) + "] " + (int)this.currentThirst + "% </color>" + "\n";
-            res += "<color=\"green\">Faim     [" + this.ComputeBarStat(this.currentHunger) + "] " + (int)this.currentHunger + "% </color>" + "\n";
-            //playerScreen.text += "<color=\"red\">Energie [" + this.ComputeBarStat(this.currentEnergy) + "] " + (int)this.currentEnergy + "% </color>" + "\n";
+            res += "<color=\"" + colorThirst + "\">Soif       [" + ComputeBarStat(currentThirst) + "] " + (int)currentThirst + "% </color>" + "\n";
+            res += "<color=\"" + colorHunger + "\">Faim     [" + ComputeBarStat(currentHunger) + "] " + (int)currentHunger + "% </color>" + "\n";
+            //playerScreen.text += "<color=\"red\">Energie [" + ComputeBarStat(currentEnergy) + "] " + (int)currentEnergy + "% </color>" + "\n";
             return res;
         }
 
@@ -106,16 +145,21 @@ namespace AUSJ
         private void UpdatePlayerCondition()
         {
             // Hunger
-            this.currentHunger -= decreaseStep;
-            this.currentHunger -= UnityEngine.Random.Range(0f, decreaseRandomMax);
-            if (this.currentHunger < 0) this.currentHunger = 0;
-            this.currentHunger = this.currentHunger % 100;
+            currentHunger -= decreaseStep;
+            currentHunger -= UnityEngine.Random.Range(0f, decreaseRandomMax);
+            if (currentHunger < 0) currentHunger = 0;
+            currentHunger = currentHunger % 100;
 
             // Thirst
-            this.currentThirst -= decreaseStep; 
-            this.currentThirst -= UnityEngine.Random.Range(0f, decreaseRandomMax);
-            if (this.currentThirst < 0) this.currentThirst = 0;
-            this.currentThirst = this.currentThirst % 100;
+            currentThirst -= decreaseStep; 
+            currentThirst -= UnityEngine.Random.Range(0f, decreaseRandomMax);
+            if (currentThirst < 0) currentThirst = 0;
+            currentThirst = currentThirst % 100;
+
+            if (currentHunger <= 10 && currentThirst <= 10)
+            {
+                playerWatch.PlayWarningSound();
+            }
 
             // Update screen
             playerScreen.text = UpdatePlayerScreen();
@@ -151,11 +195,6 @@ namespace AUSJ
 
             // Update player stats screen
             playerScreen.text = UpdatePlayerScreen();
-        }
-
-        private void Update()
-        {
-
         }
     }
 }

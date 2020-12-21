@@ -161,6 +161,7 @@ GameObject:
   - component: {fileID: 822273186295473937}
   - component: {fileID: 822273186295473938}
   - component: {fileID: 822273186295473939}
+  - component: {fileID: 1922122169}
   m_Layer: 0
   m_Name: WaterSource
   m_TagString: waterSource
@@ -243,3 +244,18 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.8
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1922122169
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 822273186295473940}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91a42a177809d004a9b2a46700465ab4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  replacementPrefab: {fileID: 0}
+  disparitionEffect: {fileID: 6091384795097992316, guid: eab4a1e0aace50b4c9e557ff1bc9fe4c,
+    type: 3}

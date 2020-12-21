@@ -97,7 +97,7 @@ namespace Valve.VR.InteractionSystem
 		{
             if (locked)
             {
-                areaMesh.material = Teleport.instance.areaLockedMaterial;
+                //areaMesh.material = Teleport.instance.areaLockedMaterial;
             }
             else
             {

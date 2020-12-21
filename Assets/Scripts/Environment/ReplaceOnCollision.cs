@@ -13,23 +13,24 @@ public class ReplaceOnCollision : MonoBehaviour
     [SerializeField]
     private GameObject disparitionEffect = null;
 
-    public void BreakCrystal()
+    public void DisparitionEffect()
     {
-        if(replacementPrefab)
+        if (replacementPrefab)
         {
-            Instantiate(replacementPrefab, transform.position, transform.rotation);
+            GameObject newPrefab = Instantiate(replacementPrefab, transform.position, transform.rotation);
+            newPrefab.transform.localScale = transform.localScale;
         }
 
         if (disparitionEffect)
         {
-            Instantiate(disparitionEffect, transform.position, transform.rotation);
+            Instantiate(disparitionEffect, transform.position, transform.rotation, gameObject.transform);
             var visualEffect = disparitionEffect.GetComponent<VisualEffect>();
+            
             if (visualEffect)
             {
                 visualEffect.Play();
             }
         }
-        Instantiate(disparitionEffect, transform.position, transform.rotation);
         Destroy(gameObject);
     }
 }

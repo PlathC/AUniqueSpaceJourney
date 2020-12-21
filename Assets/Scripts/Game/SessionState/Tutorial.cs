@@ -20,7 +20,7 @@ namespace AUSJ
         private Transform snapTurnObj = null;
         private Transform teleporting = null;
 
-        public int nbPiecesGatheredWatch = 0;
+        public int nbPiecesGatheredWatch = 2;
         private int nbPieces = 3;
 
         private Hand leftHand = null;
@@ -151,16 +151,19 @@ namespace AUSJ
             };
 
             // Show control hints
-            //m_session.StartCoroutine(ShowControlHints()); // Not needed because already done by Teleport script
+            // m_session.StartCoroutine(ShowControlHints()); // Not needed because already done by Teleport script
 
-            //// Enable snap turn
-            //snapTurnObj.GetComponent<SnapTurn>().CanRotate = true;
+            // Enable snap turn
+            snapTurnObj.GetComponent<SnapTurn>().CanRotate = true;
 
-            //// Enable teleportation
-            //teleporting.gameObject.SetActive(true);
+            // Enable teleportation
+            teleporting.gameObject.SetActive(true);
 
-            //// Tuto screen end => step search watch pieces
-            //m_state = TutorialState.BuildWatch;
+            // Hide tuto screen
+            screenTuto.transform.gameObject.SetActive(false);
+
+            // Tuto screen end => step search watch pieces
+            m_state = TutorialState.BuildWatch;
         }
 
         IEnumerator ShowControlHints()
@@ -189,7 +192,7 @@ namespace AUSJ
             yield return m_session.StartCoroutine(TextUtils.FadeInText(speed, m_player.PlayerWatch.PlayerScreen, txtTuto));
             yield return new WaitForSeconds(5);
 
-            txtTuto = "Mon système d'éclairage fonctionne également de nouveau !!";
+            txtTuto = "Mon système d'éclairage fonctionne également de nouveau !! Je risque d'en avoir besoin pour visiter cette grotte";
             yield return m_session.StartCoroutine(TextUtils.FadeInText(speed, m_player.PlayerWatch.PlayerScreen, txtTuto));
             yield return new WaitForSeconds(5);
 
@@ -209,9 +212,6 @@ namespace AUSJ
 
             // Hide control hint
             ControllerButtonHints.HideTextHint(leftHand, toggleLight);
-
-            // Show player stats
-            m_player.StartUpdatePlayerConditions();
 
             watchTutoCompleted = true;
         }

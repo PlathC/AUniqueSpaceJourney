@@ -42,6 +42,8 @@ namespace AUSJ
         public Watch PlayerWatch { get => playerWatch; }
         public FlashLight FlashLight { get => flashLight; set => flashLight = value; }
         public GameObject Holsters { get => holsters; set => holsters = value; }
+        public float CurrentThirst { get => currentThirst; }
+        public float CurrentHunger { get => currentHunger; }
 
         void Start()
         {
@@ -105,19 +107,19 @@ namespace AUSJ
             string colorHunger = "green";
 
             // Red color if stats are low
-            if (currentThirst <= 10)
+            if (CurrentThirst <= 10)
             {
                 colorThirst = "red";
             }
 
-            if (currentHunger <= 10)
+            if (CurrentHunger <= 10)
             {
                 colorHunger = "red";
             }
 
             string res = "# Statut du joueur" + "\n";
-            res += "<color=\"" + colorThirst + "\">Soif       [" + ComputeBarStat(currentThirst) + "] " + (int)currentThirst + "% </color>" + "\n";
-            res += "<color=\"" + colorHunger + "\">Faim     [" + ComputeBarStat(currentHunger) + "] " + (int)currentHunger + "% </color>" + "\n";
+            res += "<color=\"" + colorThirst + "\">Soif       [" + ComputeBarStat(CurrentThirst) + "] " + (int)CurrentThirst + "% </color>" + "\n";
+            res += "<color=\"" + colorHunger + "\">Faim     [" + ComputeBarStat(CurrentHunger) + "] " + (int)CurrentHunger + "% </color>" + "\n";
             //playerScreen.text += "<color=\"red\">Energie [" + ComputeBarStat(currentEnergy) + "] " + (int)currentEnergy + "% </color>" + "\n";
             return res;
         }
@@ -147,16 +149,16 @@ namespace AUSJ
             // Hunger
             currentHunger -= decreaseStep;
             currentHunger -= UnityEngine.Random.Range(0f, decreaseRandomMax);
-            if (currentHunger < 0) currentHunger = 0;
-            currentHunger = currentHunger % 100;
+            if (CurrentHunger < 0) currentHunger = 0;
+            currentHunger = CurrentHunger % 100;
 
             // Thirst
             currentThirst -= decreaseStep; 
             currentThirst -= UnityEngine.Random.Range(0f, decreaseRandomMax);
-            if (currentThirst < 0) currentThirst = 0;
-            currentThirst = currentThirst % 100;
+            if (CurrentThirst < 0) currentThirst = 0;
+            currentThirst = CurrentThirst % 100;
 
-            if (currentHunger <= 10 && currentThirst <= 10)
+            if (CurrentHunger <= 10 && CurrentThirst <= 10)
             {
                 playerWatch.PlayWarningSound();
             }
@@ -175,7 +177,7 @@ namespace AUSJ
             currentHunger += percent;
             
             // Cap current hunger
-            currentHunger = currentHunger % 100;
+            currentHunger = CurrentHunger % 100;
 
             // Update player stats screen
             playerScreen.text = UpdatePlayerScreen();
@@ -191,7 +193,7 @@ namespace AUSJ
             currentThirst += percent;
 
             // Cap current thirst
-            currentThirst = currentThirst % 100;
+            currentThirst = CurrentThirst % 100;
 
             // Update player stats screen
             playerScreen.text = UpdatePlayerScreen();

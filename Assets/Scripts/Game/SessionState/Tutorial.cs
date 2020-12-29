@@ -20,7 +20,7 @@ namespace AUSJ
         private Transform snapTurnObj = null;
         private Transform teleporting = null;
 
-        public int nbPiecesGatheredWatch = 2;
+        public int nbPiecesGatheredWatch = 0;
         private int nbPieces = 3;
 
         private Hand leftHand = null;

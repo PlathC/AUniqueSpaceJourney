@@ -14,7 +14,6 @@ namespace AUSJ
         {
             if (other.gameObject.tag == "PlayerCollider")
             {
-                Debug.Log("TRIGGER SOUND");
                 AudioSource audioSource = transform.GetChild(0).GetComponent<AudioSource>();
 
                 // Trigger monster sound

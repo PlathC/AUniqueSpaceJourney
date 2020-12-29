@@ -45,10 +45,7 @@ namespace AUSJ
             m_session = s;
 
             // State tuto screen
-            //m_state = TutorialState.IndicScreen;
-
-            // TESTING
-            m_state = TutorialState.BuildWatch;
+            m_state = TutorialState.IndicScreen;
 
             nextAction = SteamVR_Input.GetBooleanAction("TutoNext"); // Gachette on any controller
             inputSource = SteamVR_Input_Sources.Any; // Any controller
@@ -101,16 +98,16 @@ namespace AUSJ
             }
 
             // initialize tuto (gather pieces instructions...)
-            //// Disable snap turn
-            //snapTurnObj = GameObject.FindGameObjectsWithTag("Player")[0].gameObject.transform.Find("Snap Turn");
-            //snapTurnObj.GetComponent<SnapTurn>().CanRotate = false;
+            // Disable snap turn
+            snapTurnObj = GameObject.FindGameObjectsWithTag("Player")[0].gameObject.transform.Find("Snap Turn");
+            snapTurnObj.GetComponent<SnapTurn>().CanRotate = false;
 
-            //// Disable teleport 
-            //teleporting = GameObject.FindGameObjectsWithTag("Player")[0].gameObject.transform.Find("Teleporting");
-            //teleporting.gameObject.SetActive(false);
+            // Disable teleport 
+            teleporting = GameObject.FindGameObjectsWithTag("Player")[0].gameObject.transform.Find("Teleporting");
+            teleporting.gameObject.SetActive(false);
 
-            //// Launch coroutine indications screen
-            //m_session.StartCoroutine(IndicScreen());
+            // Launch coroutine indications screen
+            m_session.StartCoroutine(IndicScreen());
         }
 
         IEnumerator IndicScreen()

@@ -6,11 +6,14 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/GameOverScene.unity
-    guid: 724de8c9c0954fe4fae4268e05114976
-  - enabled: 1
     path: Assets/Scenes/mainScene.unity
     guid: 08e465c680a3e6846b9db8b84f76e07c
+  - enabled: 1
+    path: Assets/Scenes/GameEndingScene.unity
+    guid: 724de8c9c0954fe4fae4268e05114976
+  - enabled: 1
+    path: Assets/Scenes/GameOverScene.unity
+    guid: df3d6748568c9d348904237fdf8e0b60
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 52a6f277f6f1dd64fb5961f272112272,
       type: 2}

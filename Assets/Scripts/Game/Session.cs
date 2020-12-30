@@ -17,9 +17,13 @@ namespace AUSJ
         [SerializeField]
         private string gameOverSceneName;
 
+        [SerializeField]
+        private string gameEndingSceneName;
+
         public IState CurrentState { get => m_currentState; set => m_currentState = value; }
 
-        private AsyncOperation m_openGameOverScene;
+        private AsyncOperation m_openScene;
+        private bool m_gameEnding = false;
         private bool m_gameover = false;
 
         // Start is called before the first frame update
@@ -44,33 +48,41 @@ namespace AUSJ
             if ((m_player.CurrentHunger == 0 || m_player.CurrentThirst == 0) && !m_gameover)
             {
                 m_gameover = true;
-                StartCoroutine(LoadScene());
+                StartCoroutine(LoadScene(gameOverSceneName));
             }
 
             CurrentState = CurrentState.Update();
         }
 
-        private IEnumerator LoadScene()
+        private IEnumerator LoadScene(string sceneName)
         {
             yield return null;
 
-            m_openGameOverScene = SceneManager.LoadSceneAsync(gameOverSceneName);
-            m_openGameOverScene.allowSceneActivation = false;
+            m_openScene = SceneManager.LoadSceneAsync(gameOverSceneName);
+            m_openScene.allowSceneActivation = false;
 
-            while (!m_openGameOverScene.isDone)
+            while (!m_openScene.isDone)
             {
                 //Output the current progress
-                Debug.Log("Loading progress: " + (m_openGameOverScene.progress * 100).ToString() + "%");
+                Debug.Log("Loading progress: " + (m_openScene.progress * 100).ToString() + "%");
 
                 // Check if the load has finished
-                if (m_openGameOverScene.progress >= 0.9f)
+                if (m_openScene.progress >= 0.9f)
                 {
-                    m_openGameOverScene.allowSceneActivation = true;
+                    m_openScene.allowSceneActivation = true;
                 }
 
                 yield return null;
             }
         }
 
+        public void LaunchGameEnding()
+        {
+            if(!m_gameEnding)
+            {
+                m_gameEnding = true;
+                StartCoroutine(LoadScene(gameEndingSceneName));
+            }
+        }
     }
 }

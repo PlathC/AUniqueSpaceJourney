@@ -10,9 +10,9 @@ namespace AUSJ
         [SerializeField]
         private AudioClip[] monsterSounds = null;
 
-        private void OnTriggerExit(Collider other)
+        private void OnTriggerEnter(Collider other)
         {
-            if (other.gameObject.tag == "PlayerCollider")
+            if (other.gameObject.CompareTag("PlayerCollider"))
             {
                 AudioSource audioSource = transform.GetChild(0).GetComponent<AudioSource>();
 

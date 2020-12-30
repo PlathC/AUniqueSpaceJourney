@@ -17,7 +17,7 @@ namespace AUSJ
         private GameObject vacuum = null;
         private GameObject triggerEndGame = null;
         private int toolsFound = 0;
-
+        private bool ending = false;
         private enum MainStoryState
         {
             EnterCave,
@@ -158,7 +158,10 @@ namespace AUSJ
                     }
                     break;
                 case MainStoryState.EndGame:
-                    // Show player score
+                    if(!ending)
+                    {
+                        m_session.LaunchGameEnding();
+                    }
                     break;
             }
             return this;

@@ -99,7 +99,7 @@ LightmapSettings:
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 112000000, guid: 1b3847985aef680418e2c8d3dc09698d,
     type: 2}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -7477,6 +7477,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   backgroundMusic: 1
   gameOverSceneName: GameOverScene
+  gameEndingSceneName: 
 --- !u!1001 &167016021
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7885,6 +7886,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2662a59734d96b4cac5d7f4dbf6d39f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  catPrefab: {fileID: 3708967230192153972, guid: 11fd04ac792e15b4fb69eec6eec7c81c,
+    type: 3}
+  catSpawner: {fileID: 1005108333}
+  endMonsterSound: {fileID: 8300000, guid: d5f306b6c1f8a764baa4e8cb1b95ac69, type: 3}
 --- !u!65 &171266219
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7953,8 +7958,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 171266217}
   m_LocalRotation: {x: -0, y: 0.11793604, z: -0, w: 0.9930212}
-  m_LocalPosition: {x: 20.015, y: -9.935486, z: -114.65}
-  m_LocalScale: {x: 5.800001, y: 4.258065, z: 9.385002}
+  m_LocalPosition: {x: 18.06, y: -8.76, z: -113.73}
+  m_LocalScale: {x: 11.816922, y: 4.258065, z: 9.385002}
   m_Children: []
   m_Father: {fileID: 1615836102}
   m_RootOrder: 28
@@ -18590,6 +18595,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000012749712888, guid: dc06161b6d97feb419f45f03b62e14b9,
+        type: 3}
+      propertyPath: doNotDestroy
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}
@@ -35784,7 +35794,7 @@ Transform:
   - {fileID: 1400026071}
   - {fileID: 1284151059}
   m_Father: {fileID: 1615836102}
-  m_RootOrder: 29
+  m_RootOrder: 30
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &786525266
 PrefabInstance:
@@ -45951,6 +45961,36 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b9fc184be4feae488800e72881c1ca7, type: 3}
+--- !u!1 &1005108333
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1005108334}
+  m_Layer: 0
+  m_Name: CatSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1005108334
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1005108333}
+  m_LocalRotation: {x: -5.1201123e-17, y: 0.9883535, z: 6.983727e-17, w: 0.15217566}
+  m_LocalPosition: {x: 11.711, y: -8.7490015, z: -109.37}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1615836102}
+  m_RootOrder: 29
+  m_LocalEulerAnglesHint: {x: 0, y: 162.494, z: 0}
 --- !u!1 &1007623614
 GameObject:
   m_ObjectHideFlags: 0

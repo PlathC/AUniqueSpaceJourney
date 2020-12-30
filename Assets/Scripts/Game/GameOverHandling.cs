@@ -7,26 +7,27 @@ using Valve.VR.Extras;
 
 public class GameOverHandling : MonoBehaviour
 {
-    public SteamVR_LaserPointer laserPointer;
+    [SerializeField]
+    private SteamVR_LaserPointer laserPointer;
 
     [SerializeField]
     private string replaySceneName;
 
     private AsyncOperation m_openReplayScene;
 
-    void Start()
+    void Awake()
     {
         laserPointer.PointerClick += PointerClick;
     }
 
     public void PointerClick(object sender, PointerEventArgs e)
     {
-        if (e.target.name == "Quit")
+        if (e.target.CompareTag("Quit"))
         {
             Debug.Log("Closing Application.");
             Application.Quit();
         }
-        else if (e.target.name == "Replay")
+        else if (e.target.CompareTag("Replay"))
         {
             StartCoroutine(LoadScene());
         }

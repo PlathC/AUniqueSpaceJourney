@@ -21,6 +21,9 @@ TagManager:
   - holsterCollider
   - fallingRocks
   - triggerEndGame
+  - helperArtifact
+  - Quit
+  - Replay
   layers:
   - Default
   - TransparentFX

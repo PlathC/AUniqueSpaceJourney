@@ -36,7 +36,7 @@ namespace AUSJ
 
             // +1 piece gathered
             Tutorial tuto = VRCamera.GetComponent<Session>().CurrentState as Tutorial;
-            tuto.nbPiecesGatheredWatch++;
+            tuto.NbPiecesGatheredWatch++;
 
             // Make sound
 

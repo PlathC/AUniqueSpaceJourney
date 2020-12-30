@@ -20,7 +20,8 @@ namespace AUSJ
         public IState CurrentState { get => m_currentState; set => m_currentState = value; }
 
         private AsyncOperation m_openGameOverScene;
-        
+        private bool m_gameover = false;
+
         // Start is called before the first frame update
         void Start()
         {
@@ -40,8 +41,11 @@ namespace AUSJ
         // Update is called once per frame
         void Update()
         {
-            if (m_player.CurrentHunger == 0 || m_player.CurrentThirst == 0)
+            if ((m_player.CurrentHunger == 0 || m_player.CurrentThirst == 0) && !m_gameover)
+            {
+                m_gameover = true;
                 StartCoroutine(LoadScene());
+            }
 
             CurrentState = CurrentState.Update();
         }

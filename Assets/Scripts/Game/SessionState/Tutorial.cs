@@ -20,13 +20,15 @@ namespace AUSJ
         private Transform snapTurnObj = null;
         private Transform teleporting = null;
 
-        public int nbPiecesGatheredWatch = 0;
+        private int nbPiecesGatheredWatch = 0;
         private int nbPieces = 3;
 
         private Hand leftHand = null;
         private GameObject flashLight = null;
 
         private bool watchTutoCompleted = false;
+
+        private HelperArtifact m_helperArtifact;
 
         private enum TutorialState
         {
@@ -38,6 +40,12 @@ namespace AUSJ
         }
 
         private TutorialState m_state;
+
+        public int NbPiecesGatheredWatch { get => nbPiecesGatheredWatch; set { 
+                nbPiecesGatheredWatch = value;
+                m_helperArtifact.ToNextPoint();
+            }
+        }
 
         public Tutorial(Player p, Session s)
         {
@@ -97,6 +105,15 @@ namespace AUSJ
                 throw new Exception("Cave ground TAG not found");
             }
 
+            try
+            {
+                m_helperArtifact = GameObject.FindGameObjectsWithTag("helperArtifact")[0].GetComponent<HelperArtifact>();
+            }
+            catch (IndexOutOfRangeException)
+            {
+                throw new Exception("helperArtifact TAG not found");
+            }
+
             // initialize tuto (gather pieces instructions...)
             // Disable snap turn
             snapTurnObj = GameObject.FindGameObjectsWithTag("Player")[0].gameObject.transform.Find("Snap Turn");
@@ -147,6 +164,7 @@ namespace AUSJ
                 yield return new WaitForSeconds(0.1f);
             };
 
+
             // Show control hints
             // m_session.StartCoroutine(ShowControlHints()); // Not needed because already done by Teleport script
 
@@ -161,6 +179,7 @@ namespace AUSJ
 
             // Tuto screen end => step search watch pieces
             m_state = TutorialState.BuildWatch;
+            m_helperArtifact.ToNextPoint();
         }
 
         IEnumerator ShowControlHints()
@@ -222,7 +241,7 @@ namespace AUSJ
                     // Check number of watch pieces gathered by player
                     // If 3/3 => spawn watch on wrist
                     // Return this or next state
-                    if (nbPiecesGatheredWatch == nbPieces)
+                    if (NbPiecesGatheredWatch == nbPieces)
                     {
                         // Lock teleport on exterior cave
                         GameObject.Find("PlayerGround").GetComponent<TeleportAreaCustom>().SetLocked(true);
@@ -238,8 +257,8 @@ namespace AUSJ
 
                         // State waiting for instruction reading
                         m_state = TutorialState.PlayerWatchInstructions;
-                    } 
-                    else if (nbPiecesGatheredWatch == 2)
+                    }
+                    else if (NbPiecesGatheredWatch == 2)
                     {
                         // Enable cave entry teleport
                         GameObject.Find("SmallPartGround").GetComponent<TeleportAreaCustom>().SetLocked(false);

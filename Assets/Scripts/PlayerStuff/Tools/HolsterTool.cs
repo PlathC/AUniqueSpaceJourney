@@ -42,7 +42,7 @@ namespace AUSJ
                     other.GetComponent<Outline>().OutlineColor = new Color(255, 255, 0);
                 }
             }
-            catch (MissingComponentException)
+            catch (Exception)
             {
                 // do nothing
             }

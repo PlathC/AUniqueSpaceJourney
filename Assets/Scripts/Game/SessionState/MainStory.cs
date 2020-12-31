@@ -160,6 +160,7 @@ namespace AUSJ
                 case MainStoryState.EndGame:
                     if(!ending)
                     {
+                        ending = true;
                         m_session.LaunchGameEnding();
                     }
                     break;

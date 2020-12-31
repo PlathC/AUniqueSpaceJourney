@@ -58,7 +58,7 @@ namespace AUSJ
         {
             yield return null;
 
-            m_openScene = SceneManager.LoadSceneAsync(gameOverSceneName);
+            m_openScene = SceneManager.LoadSceneAsync(sceneName);
             m_openScene.allowSceneActivation = false;
 
             while (!m_openScene.isDone)

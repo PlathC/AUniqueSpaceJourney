@@ -13,19 +13,23 @@ public class EndGame : MonoBehaviour
     [SerializeField]
     private AudioClip endMonsterSound;
 
+    private bool alreadyTriggered = false;
+
     private bool endGameTriggered = false;
 
     public bool EndGameTriggered { get => endGameTriggered; set => endGameTriggered = value; }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("PlayerCollider"))
+        if (other.gameObject.CompareTag("PlayerCollider") && !alreadyTriggered)
         {
             var cat = Instantiate(catPrefab, catSpawner.transform.position, catSpawner.transform.rotation);
             var source = cat.GetComponent<AudioSource>();
             source.PlayOneShot(endMonsterSound);
 
             StartCoroutine(FinalizeGameEnd(10));
+
+            alreadyTriggered = true;
         }
     }
 

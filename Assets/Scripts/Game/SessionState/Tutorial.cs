@@ -53,7 +53,7 @@ namespace AUSJ
             m_session = s;
 
             // State tuto screen
-            m_state = TutorialState.IndicScreen;
+            //m_state = TutorialState.IndicScreen;
 
             nextAction = SteamVR_Input.GetBooleanAction("TutoNext"); // Gachette on any controller
             inputSource = SteamVR_Input_Sources.Any; // Any controller
@@ -114,6 +114,9 @@ namespace AUSJ
                 throw new Exception("helperArtifact TAG not found");
             }
 
+            // DEBUG
+            m_state = TutorialState.WaitingEndTuto;
+            /*
             // initialize tuto (gather pieces instructions...)
             // Disable snap turn
             snapTurnObj = GameObject.FindGameObjectsWithTag("Player")[0].gameObject.transform.Find("Snap Turn");
@@ -125,6 +128,7 @@ namespace AUSJ
 
             // Launch coroutine indications screen
             m_session.StartCoroutine(IndicScreen());
+            */
         }
 
         IEnumerator IndicScreen()

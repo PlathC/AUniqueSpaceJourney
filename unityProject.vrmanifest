@@ -5,7 +5,7 @@
       "app_key": "application.generated.unity.auniquespacejourney.exe",
       "launch_type": "url",
       "url": "steam://launch/",
-      "action_manifest_path": "D:\\Documents\\Cours\\UTBM\\S3\\VI50\\TP\\A Unique Space Journey\\Assets\\StreamingAssets\\SteamVR\\actions.json",
+      "action_manifest_path": "F:\\AUniqueSpaceJourney\\Assets\\StreamingAssets\\SteamVR\\actions.json",
       "strings": {
         "en_us": {
           "name": "A Unique Space Journey [Testing]"

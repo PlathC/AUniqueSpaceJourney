@@ -113,10 +113,7 @@ namespace AUSJ
             {
                 throw new Exception("helperArtifact TAG not found");
             }
-
-            // DEBUG
-            m_state = TutorialState.WaitingEndTuto;
-            /*
+            
             // initialize tuto (gather pieces instructions...)
             // Disable snap turn
             snapTurnObj = GameObject.FindGameObjectsWithTag("Player")[0].gameObject.transform.Find("Snap Turn");
@@ -128,7 +125,6 @@ namespace AUSJ
 
             // Launch coroutine indications screen
             m_session.StartCoroutine(IndicScreen());
-            */
         }
 
         IEnumerator IndicScreen()

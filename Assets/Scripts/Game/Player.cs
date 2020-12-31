@@ -10,10 +10,10 @@ namespace AUSJ
     public class Player : MonoBehaviour
     {
         [SerializeField]
-        private float startThirst = 40f;
+        private float startThirst = 80f;
         
         [SerializeField]
-        private float startHunger = 50f;
+        private float startHunger = 80f;
 
         //[SerializeField]
         //private float startEnergy = 90f; // NOT USED YET
@@ -26,7 +26,7 @@ namespace AUSJ
 
         [SerializeField]
         [Tooltip("Decrease stats every X seconds")]
-        private float decreaseEvery = 60f; // in sec
+        private float decreaseEvery = 120f; // in sec
 
         private float decreaseStart = 10; // in sec
 

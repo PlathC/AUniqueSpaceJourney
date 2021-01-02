@@ -45,6 +45,13 @@ namespace AUSJ
         public float CurrentThirst { get => currentThirst; }
         public float CurrentHunger { get => currentHunger; }
 
+        void Awake()
+        {
+            // Set initial stats
+            currentThirst = startThirst;
+            currentHunger = startHunger;
+        }
+
         void Start()
         {
             try
@@ -85,12 +92,8 @@ namespace AUSJ
 
             // Disable holsters by default
             Holsters.SetActive(false);
-
-            // Set initial stats
-            currentThirst = startThirst;
-            currentHunger = startHunger;
-            //currentEnergy = startEnergy; // NOT USED
         }
+
 
         public void StartUpdatePlayerConditions()
         {

@@ -5,7 +5,7 @@
 This is a Unity VR game for a school project which tell the story of a space traveler that crashed his rocket on a foreign planet. He'll then need to survived in a cave where he has find protection but in which he's followed by strange noises.
 
 <p align="center">
-[![Demo presentation](https://img.youtube.com/vi/_ASvNGurleg/0.jpg)](https://www.youtube.com/watch?v=_ASvNGurleg)
+  <a href="https://www.youtube.com/watch?v=_ASvNGurleg"><img src="https://img.youtube.com/vi/_ASvNGurleg/0.jpg" alt="Cave Entry" width="350"/></a>
 </p>
 
 <p align="center">

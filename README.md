@@ -6,6 +6,7 @@ This is a Unity VR game for a school project which tell the story of a space tra
 
 <p align="center">
   <a href="https://www.youtube.com/watch?v=_ASvNGurleg"><img src="https://img.youtube.com/vi/_ASvNGurleg/0.jpg" alt="Cave Entry" width="350"/></a>
+  <b>Youtube presentation</b>
 </p>
 
 <p align="center">

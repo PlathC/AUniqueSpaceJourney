@@ -5,6 +5,12 @@
 This is a Unity VR game for a school project which tell the story of a space traveler that crashed his rocket on a foreign planet. He'll then need to survived in a cave where he has find protection but in which he's followed by strange noises.
 
 <p align="center">
+  <a href="https://www.youtube.com/watch?v=_ASvNGurleg"><img src="https://img.youtube.com/vi/_ASvNGurleg/0.jpg" alt="Cave Entry" width="350"/></a>
+  <br/>
+  <b>Youtube presentation</b>
+</p>
+
+<p align="center">
 <img src="https://github.com/PlathC/AUniqueSpaceJourney/blob/main/readme_image/cave_entry.png" alt="Cave Entry" width="350"/><img src="https://github.com/PlathC/AUniqueSpaceJourney/blob/main/readme_image/rocket.png" alt="Player's rocket" width="350"/>
 </p>
 
@@ -27,7 +33,7 @@ However the project has been developped and tested on an Oculus Rift S.
 
 ### Prebuilt 
 
-*Currently no prebuilt for the project*
+- [__V1__](https://github.com/PlathC/AUniqueSpaceJourney/releases/tag/1.0.0)
 
 ## Contributors
 

@@ -33,7 +33,8 @@ However the project has been developped and tested on an Oculus Rift S.
 
 ### Prebuilt 
 
-- [__V1__](https://github.com/PlathC/AUniqueSpaceJourney/releases/tag/1.0.0)
+- [__V1.0.0__](https://github.com/PlathC/AUniqueSpaceJourney/releases/tag/1.0.0)
+- [__V1.1.0__](https://github.com/PlathC/AUniqueSpaceJourney/releases/tag/1.1.0)
 
 ## Contributors
 
